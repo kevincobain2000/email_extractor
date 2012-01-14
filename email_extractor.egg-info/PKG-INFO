@@ -1,0 +1,22 @@
+Metadata-Version: 1.0
+Name: email-extractor
+Version: v1
+Summary: Extract Emails by using webcrawl Extract Url links from a site
+Home-page: http://www.jaist.ac.jp/~s1010205/email_extractor/html/index.html
+Author: KATHURIA Pulkit
+Author-email: kevincobain2000@gmail.com
+License: BSD
+Description: usage: email_extractor.py [-h] [-l LIMIT] [-u URL]
+        
+        Web Email Extractor
+        
+        optional arguments:
+          -h, --help            show this help message and exit
+          -l LIMIT, --limit LIMIT
+                                -l numUrlsToCrawl
+          -u URL, --url URL     -u http://sitename.com
+        
+Keywords: http://www.jaist.ac.jp/~s1010205/email_extractor/html/index.html
+Platform: UNKNOWN
+Classifier: Development Status :: 6 - Mature
+Classifier: Topic :: Utilities

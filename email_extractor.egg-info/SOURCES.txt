@@ -1,0 +1,8 @@
+README
+email_extractor.py
+setup.py
+email_extractor.egg-info/PKG-INFO
+email_extractor.egg-info/SOURCES.txt
+email_extractor.egg-info/dependency_links.txt
+email_extractor.egg-info/top_level.txt
+scripts/email_extractor

@@ -1,0 +1,9 @@
+usage: email_extractor.py [-h] [-l LIMIT] [-u URL]
+
+Web Email Extractor
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -l LIMIT, --limit LIMIT
+                        -l numUrlsToCrawl
+  -u URL, --url URL     -u http://sitename.com
