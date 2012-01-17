@@ -2,7 +2,7 @@ Metadata-Version: 1.0
 Name: email-extractor
 Version: v1
 Summary: Extract Emails by using webcrawl Extract Url links from a site
-Home-page: http://www.jaist.ac.jp/~s1010205/email_extractor/html/index.html
+Home-page: http://www.jaist.ac.jp/~s1010205/home
 Author: KATHURIA Pulkit
 Author-email: kevincobain2000@gmail.com
 License: BSD
@@ -27,7 +27,7 @@ Description: About
         -l numUrlsToCrawl
         -u URL, --url URL     -u http://sitename.com
         
-Keywords: http://www.jaist.ac.jp/~s1010205/email_extractor/html/index.html
+Keywords: http://www.jaist.ac.jp/~s1010205/pybits/pybits.html.LyXconv/pybits.html#x1-20001
 Platform: UNKNOWN
 Classifier: Development Status :: 6 - Mature
 Classifier: Topic :: Utilities

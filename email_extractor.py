@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 #! /usr/bin/env python
 __thisfile__ = "http://www.jaist.ac.jp/~s1010205/email_extractor/email_extractor.py"
+__url__ = "http://www.jaist.ac.jp/~s1010205/home"
 """
     Web Data Extractor, extract emails by sitecrawl
     Copyright (C) 2011 KATHURIA Pulkit
