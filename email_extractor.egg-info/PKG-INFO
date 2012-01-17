@@ -15,7 +15,7 @@ Description: About
         
         usage::
         
-        email_extractor.py [-h] [-l LIMIT] [-u URL]
+        email_extractor [-h] [-l LIMIT] [-u URL]
         
         Web Email Extractor
         -------------------
