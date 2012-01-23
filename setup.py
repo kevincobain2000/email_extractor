@@ -9,12 +9,11 @@ setup(
     name = "email_extractor",
     version = "v1",
     author = "KATHURIA Pulkit",
-    author_email = "kevincobain2000@gmail.com",
+    author_email = "pulkit@jaist.ac.jp",
     description = ("Extract Emails by using webcrawl "
                                    "Extract Url links from a site"),
     license = "BSD",
-    keywords = "http://www.jaist.ac.jp/~s1010205/pybits/pybits.html.LyXconv/pybits.html#x1-20001",
-    url = "http://www.jaist.ac.jp/~s1010205/home",
+    url = "http://www.jaist.ac.jp/~s1010205/code/index.html",
     packages=[''],
     long_description=read('README'),
     classifiers=[
