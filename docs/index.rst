@@ -34,7 +34,7 @@ Download
 
 .. raw:: html
 
-  <br><a href="https://github.com/downloads/kevincobain2000/email_extractor/email_extractor-v1.tar.gz" class="button icon arrowdown">Back to Home</a>
+  <br><a href="https://github.com/downloads/kevincobain2000/email_extractor/email_extractor-v1.tar.gz" class="button icon arrowdown">email_extractor-v1.tar.gz</a>
 
 
 .. include:: disqus_jnlp.html.rst
