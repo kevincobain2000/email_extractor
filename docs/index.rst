@@ -29,4 +29,12 @@ Email and Url Extractor
 
    <iframe width="100%" id="email_extractor" onLoad="calcHeight();" src="http://www.jaist.ac.jp/~s1010205/cgi-bin/quick_nlp/crawler.cgi" scrolling="NO" frameborder="0" height="1"></iframe>
 
+Download
+========
+
+.. raw:: html
+
+  <br><a href="https://github.com/downloads/kevincobain2000/email_extractor/email_extractor-v1.tar.gz" class="button icon arrowdown">Back to Home</a>
+
+
 .. include:: disqus_jnlp.html.rst
