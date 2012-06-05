@@ -27,7 +27,7 @@ Email and Url Extractor
    //--> 
    </script>
 
-   <iframe width="100%" id="email_extractor" onLoad="calcHeight();" src="http://www.jaist.ac.jp/~s1010205/cgi-bin/quick_nlp/crawler.cgi" scrolling="NO" frameborder="0" height="1"></iframe>
+   <iframe width="100%" id="email_extractor" onLoad="calcHeight();" src="http://www.jaist.ac.jp/~s1010205/cgi-bin/quick_nlp/crawler.cgi" scrolling="NO" frameborder="0" ></iframe>
 
 Download
 ========
