@@ -7,13 +7,13 @@ def read(fname):
 setup(
     scripts = ['scripts/email_extractor'],
     name = "email_extractor",
-    version = "v1",
+    version = "v2",
     author = "KATHURIA Pulkit",
     author_email = "pulkit@jaist.ac.jp",
     description = ("Extract Emails by using webcrawl "
                                    "Extract Url links from a site"),
     license = "BSD",
-    url = "http://www.jaist.ac.jp/~s1010205/code/index.html",
+    url = "http://kevincobain2000.github.io/dist/#/",
     packages=[''],
     long_description=read('README'),
     classifiers=[
