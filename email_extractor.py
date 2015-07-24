@@ -162,17 +162,30 @@ def urltext(url):
 def crawl_site(url, limit):
     return parsePages(url, limit, 'None')
 
+def write_list_to_file(thefile, thelist):
+    for item in thelist:
+      thefile.write("%s\n" % item)
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(add_help = True)
     parser = argparse.ArgumentParser(description= 'Web Email Extractor')
     parser.add_argument('-l','--limit', action="store", default=100, dest= "limit", type= int, help='-l numUrlsToCrawl')
     parser.add_argument('-u','--url', action="store" ,dest= "url", help='-u http://sitename.com')
+    parser.add_argument('-f','--file', action="store" ,dest= "file", help='-f filename.txt')
     myarguments = parser.parse_args()
+
     emails = defaultdict(int)
+    unqiue_emails_for_file = []
+
     for url in crawl_site(myarguments.url, myarguments.limit):
         for email in grab_email(urltext(url)):
-            if not emails.has_key(email): print email
+            if not emails.has_key(email):
+                print email
+                if myarguments.file: unqiue_emails_for_file.append(email)
             emails[email] += 1
+    if myarguments.file:
+        write_list_to_file( open(myarguments.file, "w"), unqiue_emails_for_file)
 
         
 
