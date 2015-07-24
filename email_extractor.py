@@ -124,12 +124,12 @@ def parsePages(startUrl, maxUrls, blockExtensions):
         url = getUrlToProcess(pageMap)
         if url == None:
             break
-        print " ", url
+        if not myarguments.silent: print " ", url
         page, date, newUrl = getPage(url)
         if page == None:
             del pageMap[url]
 	elif url != newUrl:
-	    print newUrl
+	    if not myarguments.silent: print newUrl
             del pageMap[url]
 	    pageMap[newUrl] = ()
 	    redirects.append(url)
@@ -173,6 +173,7 @@ if __name__ == '__main__':
     parser.add_argument('-l','--limit', action="store", default=100, dest= "limit", type= int, help='-l numUrlsToCrawl')
     parser.add_argument('-u','--url', action="store" ,dest= "url", help='-u http://sitename.com')
     parser.add_argument('-f','--file', action="store" ,dest= "file", help='-f filename.txt')
+    parser.add_argument('-s','--silent', action="store_true" ,dest= "silent", help='-s')
     myarguments = parser.parse_args()
 
     emails = defaultdict(int)
@@ -181,7 +182,7 @@ if __name__ == '__main__':
     for url in crawl_site(myarguments.url, myarguments.limit):
         for email in grab_email(urltext(url)):
             if not emails.has_key(email):
-                print email
+                if not myarguments.silent: print email
                 if myarguments.file: unqiue_emails_for_file.append(email)
             emails[email] += 1
     if myarguments.file:
