@@ -5,6 +5,7 @@ Web email extractor by url crawl using command line interface. A free utility to
 Online Demo
 ------------
 
+I am not a student anymore so server link won't longer work. Please host it on your servers.
 `Extract Emails or Urls <http://www.jaist.ac.jp/~s1010205/email_extractor>`_
 
 
