@@ -26,7 +26,7 @@ First it extracts all the number of urls provided by the user and then extracts 
 # Install
 
 ```sh
-curl -sLk https://raw.githubusercontent.com/kevincobain2000/email_extractor/master/install.sh | sh
+curl -sL https://raw.githubusercontent.com/kevincobain2000/email_extractor/master/install.sh | sh
 ```
 
 
