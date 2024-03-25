@@ -1,0 +1,37 @@
+name: goreleaser
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  goreleaser:
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: kevincobain2000/action-gobrew@v2
+        with:
+          version: 'mod'
+      - name: Setup Node.js ${{ matrix.node-versions }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+      - name: Build Dist for Embed
+        working-directory: ui
+        run: |
+          npm install
+          npm run build
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@v3
+        with:
+          distribution: goreleaser
+          version: latest
+          args: release --clean --skip-validate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
