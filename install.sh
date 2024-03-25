@@ -1,14 +1,17 @@
 #!/bin/sh
 
-set -e
+GOBREW_BIN_DIR=$HOME/.gobrew/bin
 
-if [ -z "$BIN_DIR" ]; then
-  BIN_DIR=$(pwd)
+# check if env GOBREW_ROOT is set
+if [ -n "$GOBREW_ROOT" ]; then
+  GOBREW_BIN_DIR=$GOBREW_ROOT/.gobrew/bin
 fi
 
-THE_ARCH_BIN=""
-THIS_PROJECT_OWNER="kevincobain2000"
-DEST=$BIN_DIR/email_extractor
+mkdir -p $GOBREW_BIN_DIR
+
+GOBREW_ARCH_BIN=''
+GOBREW_BIN='gobrew'
+GOBREW_VERSION=${1:-latest}
 
 THISOS=$(uname -s)
 ARCH=$(uname -m)
@@ -17,45 +20,57 @@ case $THISOS in
    Linux*)
       case $ARCH in
         arm64)
-          THE_ARCH_BIN="$THIS_PROJECT_NAME-linux-arm64"
+          GOBREW_ARCH_BIN="gobrew-linux-arm64"
           ;;
         aarch64)
-          THE_ARCH_BIN="$THIS_PROJECT_NAME-linux-arm64"
+          GOBREW_ARCH_BIN="gobrew-linux-arm64"
           ;;
         armv6l)
-          THE_ARCH_BIN="$THIS_PROJECT_NAME-linux-arm"
+          GOBREW_ARCH_BIN="gobrew-linux-arm"
           ;;
         armv7l)
-          THE_ARCH_BIN="$THIS_PROJECT_NAME-linux-arm"
+          GOBREW_ARCH_BIN="gobrew-linux-arm"
           ;;
         *)
-          THE_ARCH_BIN="$THIS_PROJECT_NAME-linux-amd64"
+          GOBREW_ARCH_BIN="gobrew-linux-amd64"
           ;;
       esac
       ;;
    Darwin*)
       case $ARCH in
         arm64)
-          THE_ARCH_BIN="$THIS_PROJECT_NAME-darwin-arm64"
+          GOBREW_ARCH_BIN="gobrew-darwin-arm64"
           ;;
         *)
-          THE_ARCH_BIN="$THIS_PROJECT_NAME-darwin-amd64"
+          GOBREW_ARCH_BIN="gobrew-darwin-amd64"
           ;;
       esac
       ;;
    Windows|MINGW64_NT*)
-      THE_ARCH_BIN="$THIS_PROJECT_NAME-windows-amd64.exe"
-      THIS_PROJECT_NAME="$THIS_PROJECT_NAME.exe"
+      GOBREW_ARCH_BIN="gobrew-windows-amd64.exe"
+      GOBREW_BIN="gobrew.exe"
       ;;
 esac
 
-if [ -z "$THE_ARCH_BIN" ]; then
+if [ -z "$GOBREW_ARCH_BIN" ]; then
    echo "This script is not supported on $THISOS and $ARCH"
    exit 1
 fi
 
-curl -L --progress-bar "https://github.com/$THIS_PROJECT_OWNER/$THIS_PROJECT_NAME/releases/latest/download/$THE_ARCH_BIN" -o "$DEST"
+DOWNLOAD_URL="https://github.com/kevincobain2000/gobrew/releases/download/$GOBREW_VERSION/$GOBREW_ARCH_BIN"
+if [ "$GOBREW_VERSION" = "latest" ]; then
+  DOWNLOAD_URL="https://github.com/kevincobain2000/gobrew/releases/$GOBREW_VERSION/download/$GOBREW_ARCH_BIN"
+fi
 
-chmod +x "$DEST"
+echo "Installing gobrew from: $DOWNLOAD_URL"
+echo ""
 
-echo "Installed successfully to: $DEST"
+curl -L --progress-bar $DOWNLOAD_URL -o $GOBREW_BIN_DIR/$GOBREW_BIN
+
+chmod +x $GOBREW_BIN_DIR/$GOBREW_BIN
+
+echo "Installed successfully to: $GOBREW_BIN_DIR/$GOBREW_BIN"
+
+echo "============================"
+$GOBREW_BIN_DIR/$GOBREW_BIN help
+echo "============================"
