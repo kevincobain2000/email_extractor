@@ -78,7 +78,6 @@ func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
 		go func(url string) {
 			defer wg.Done()
 
-			emails := []string{}
 			err := hc.browse.Open(url)
 			if err != nil {
 				return
@@ -86,7 +85,8 @@ func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
 
 			rawBody := hc.browse.Body()
 
-			emails = append(emails, ExtractEmailsFromText(rawBody)...)
+			emails := ExtractEmailsFromText(rawBody)
+			emails = FilterOutCommonExtensions(emails)
 			emails = UniqueStrings(emails)
 			if len(emails) == 0 {
 				return

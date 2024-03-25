@@ -1,5 +1,7 @@
 package pkg
 
+import "strings"
+
 // IsEqualSlice checks if two slices of strings are equal.
 func IsEqualSlice(a, b []string) bool {
 	if len(a) != len(b) {
@@ -26,6 +28,25 @@ func UniqueStrings(input []string) []string {
 	}
 
 	return result
+}
+
+func FilterOutCommonExtensions(input []string) []string {
+	exts := []string{".png", ".jpg", ".jpeg", ".gif", ".css", ".js", ".ico", ".svg", ".webp", ".pdf", ".zip", ".rar", ".tar", ".gz", ".7z", ".mp3", ".mp4", ".avi", ".mkv", ".mov", ".wmv", ".flv", ".m4v", ".webm", ".ogg", ".flac", ".wav", ".aac", ".wma", ".m4a", ".opus", ".mid", ".midi", ".mpg", ".mpeg", ".m4v", ".wmv", ".flv", ".m4v", ".webm", ".ogg", ".flac", ".wav", ".aac", ".wma", ".m4a", ".opus", ".mid", ".midi", ".mpg", ".mpeg"}
+
+	filtered := []string{}
+	for _, file := range input {
+		hasCommonExtension := false
+		for _, ext := range exts {
+			if strings.HasSuffix(strings.ToLower(file), ext) {
+				hasCommonExtension = true
+				break
+			}
+		}
+		if !hasCommonExtension {
+			filtered = append(filtered, file)
+		}
+	}
+	return filtered
 }
 
 // check if string is in slice
