@@ -32,18 +32,21 @@ curl -sLk https://raw.githubusercontent.com/kevincobain2000/email_extractor/mast
 
 # Usage
 
-```
+CLI
+
+```sh
 ./email_extractor --url=
 ```
 
+Options
 
 ```sh
-  -limit int
-    	limit of urls to crawl (default 20)
-  -timeout int
-    	timeout in milliseconds (default 1000)
-  -url string
-    	url to crawl
+-limit int
+    limit of urls to crawl (default 20)
+-timeout int
+    timeout in milliseconds (default 1000)
+-url string
+    url to crawl
 ```
 
 # CHANGE LOG
