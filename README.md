@@ -4,17 +4,15 @@ Web email extractor by url crawl using command line interface. A free utility to
 
 # Install
 
-
-`python setup.py install`_
+```sh
+curl -sLk https://raw.githubusercontent.com/kevincobain2000/email_extractor/master/install.sh | sh
+```
 
 
 # Usage
 
-
-**usage::**
-
 ```
-email_extractor --url= --limit=
+./email_extractor --url=
 ```
 
 
@@ -26,3 +24,8 @@ email_extractor --url= --limit=
   -url string
     	url to crawl
 ```
+
+# CHANGE LOG
+
+- v1 - Python implementation to extract email addresses by crawling URLS. Installation using pip.
+- v2 - 100x performance improvement by using goroutines

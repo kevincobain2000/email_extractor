@@ -14,14 +14,16 @@ import (
 type Options struct {
 	TimeoutMillisecond int64
 	Limit              int
+	Crawl              bool
 }
 
 type Option func(*Options) error
 
 type HTTPChallenge struct {
-	browse         *browser.Browser
-	alreadyCrawled []string
-	options        *Options
+	browse *browser.Browser
+
+	urls    []string
+	options *Options
 }
 
 func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
@@ -44,24 +46,27 @@ func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
 
 func (hc *HTTPChallenge) CrawlRecursive(url string) *HTTPChallenge {
 	urls := hc.Crawl(url)
+	if !hc.options.Crawl {
+		urls = []string{url}
+	}
 	for _, u := range urls {
-		if len(hc.alreadyCrawled) >= hc.options.Limit {
+		if len(hc.urls) >= hc.options.Limit {
 			break
 		}
-		if StringInSlice(u, hc.alreadyCrawled) {
+		if StringInSlice(u, hc.urls) {
 			continue
 		}
 		color.Notice.Print("Crawling")
 		color.Secondary.Print("....................")
 		fmt.Println(u)
-		hc.alreadyCrawled = append(hc.alreadyCrawled, u)
+		hc.urls = append(hc.urls, u)
 		hc.CrawlRecursive(u)
 	}
 	return hc
 }
 
 func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
-	for _, u := range hc.alreadyCrawled {
+	for _, u := range hc.urls {
 		emails := []string{}
 		err := hc.browse.Open(u)
 		if err != nil {
