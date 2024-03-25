@@ -3,6 +3,7 @@ package pkg
 import (
 	"fmt"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
@@ -44,11 +45,13 @@ func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
 	}
 }
 
-func (hc *HTTPChallenge) CrawlRecursive(url string) *HTTPChallenge {
+func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPChallenge {
+	defer wg.Done()
 	urls := hc.Crawl(url)
 	if !hc.options.Crawl {
 		urls = []string{url}
 	}
+	var mu sync.Mutex
 	for _, u := range urls {
 		if len(hc.urls) >= hc.options.Limit {
 			break
@@ -59,36 +62,45 @@ func (hc *HTTPChallenge) CrawlRecursive(url string) *HTTPChallenge {
 		color.Notice.Print("Crawling")
 		color.Secondary.Print("....................")
 		fmt.Println(u)
+		mu.Lock()
 		hc.urls = append(hc.urls, u)
-		hc.CrawlRecursive(u)
+		mu.Unlock()
+		wg.Add(1)
+		go hc.CrawlRecursive(u, wg)
 	}
 	return hc
 }
 
 func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
+	var wg sync.WaitGroup
 	for _, u := range hc.urls {
-		emails := []string{}
-		err := hc.browse.Open(u)
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
+		wg.Add(1)
+		go func(url string) {
+			defer wg.Done()
 
-		rawBody := hc.browse.Body()
+			emails := []string{}
+			err := hc.browse.Open(url)
+			if err != nil {
+				return
+			}
 
-		emails = append(emails, ExtractEmailsFromText(rawBody)...)
-		emails = UniqueStrings(emails)
-		if len(emails) == 0 {
-			continue
-		}
-		color.Notice.Print("Emails")
-		color.Secondary.Print("  ....................")
-		color.Secondary.Println(fmt.Sprintf("(%d) %s", len(emails), u))
-		for _, email := range emails {
-			color.Secondary.Print("        ....................")
-			color.Success.Println(email)
-		}
+			rawBody := hc.browse.Body()
+
+			emails = append(emails, ExtractEmailsFromText(rawBody)...)
+			emails = UniqueStrings(emails)
+			if len(emails) == 0 {
+				return
+			}
+			color.Notice.Print("Emails")
+			color.Secondary.Print("  ....................")
+			color.Secondary.Println(fmt.Sprintf("(%d) %s", len(emails), url))
+			for _, email := range emails {
+				color.Secondary.Print("        ....................")
+				color.Success.Println(email)
+			}
+		}(u)
 	}
+	wg.Wait()
 	return hc
 }
 
