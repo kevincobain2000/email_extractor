@@ -120,6 +120,8 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		}
 		href = hc.relativeToAbsoluteURL(href)
 
+		href = RemoveAnyQueryParam(href)
+		href = RemoveAnyAnchors(href)
 		isSubset := IsSameDomain(url, href)
 		if isSubset {
 			urls = append(urls, href)

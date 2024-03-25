@@ -34,6 +34,13 @@ func RemoveAnyQueryParam(u string) string {
 	return u
 }
 
+func RemoveAnyAnchors(u string) string {
+	if strings.Contains(u, "#") {
+		return strings.Split(u, "#")[0]
+	}
+	return u
+}
+
 func GetBaseURL(u string) string {
 	parsedURL, err := url.Parse(u)
 	if err != nil {

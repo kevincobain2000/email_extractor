@@ -49,6 +49,10 @@ Options
     url to crawl
 ```
 
+# Samples
+
+![Screenshot](https://imgur.com/EDKlBIh.png)
+
 # CHANGE LOG
 
 - v1 - Python implementation to extract email addresses by crawling URLS. Installation using pip.
