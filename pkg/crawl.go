@@ -45,15 +45,17 @@ func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
 func (hc *HTTPChallenge) CrawlRecursive(url string) *HTTPChallenge {
 	urls := hc.Crawl(url)
 	for _, u := range urls {
+		if len(hc.alreadyCrawled) >= hc.options.Limit {
+			break
+		}
 		if StringInSlice(u, hc.alreadyCrawled) {
 			continue
 		}
-		color.Notice.Println("Crawling ....................", u)
+		color.Notice.Print("Crawling")
+		color.Secondary.Print("....................")
+		fmt.Println(u)
 		hc.alreadyCrawled = append(hc.alreadyCrawled, u)
 		hc.CrawlRecursive(u)
-		if len(hc.alreadyCrawled) > hc.options.Limit {
-			break
-		}
 	}
 	return hc
 }
@@ -63,6 +65,7 @@ func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
 		emails := []string{}
 		err := hc.browse.Open(u)
 		if err != nil {
+			fmt.Println(err)
 			continue
 		}
 
@@ -73,8 +76,11 @@ func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
 		if len(emails) == 0 {
 			continue
 		}
-		color.Notice.Println("Emails   ....................", "(", len(emails), ")", u)
+		color.Notice.Print("Emails")
+		color.Secondary.Print("  ....................")
+		color.Secondary.Println(fmt.Sprintf("(%d) %s", len(emails), u))
 		for _, email := range emails {
+			color.Secondary.Print("        ....................")
 			color.Success.Println(email)
 		}
 	}
