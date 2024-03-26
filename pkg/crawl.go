@@ -16,6 +16,7 @@ type Options struct {
 	TimeoutMillisecond int64
 	Limit              int
 	Crawl              bool
+	WriteToFile        string
 }
 
 type Option func(*Options) error
@@ -24,6 +25,7 @@ type HTTPChallenge struct {
 	browse *browser.Browser
 
 	urls    []string
+	emails  []string
 	options *Options
 }
 
@@ -91,6 +93,7 @@ func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
 			if len(emails) == 0 {
 				return
 			}
+			hc.emails = append(hc.emails, emails...)
 			color.Notice.Print("Emails")
 			color.Secondary.Print("  ....................")
 			color.Secondary.Println(fmt.Sprintf("(%d) %s", len(emails), url))
@@ -101,6 +104,15 @@ func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
 		}(u)
 	}
 	wg.Wait()
+	hc.emails = UniqueStrings(hc.emails)
+	if hc.options.WriteToFile != "" {
+		err := WriteToFile(hc.emails, hc.options.WriteToFile)
+		if err != nil {
+			color.Error.Println("Error writing emails to file", hc.options.WriteToFile)
+		} else {
+			color.Success.Println("Emails successfully written to", hc.options.WriteToFile)
+		}
+	}
 	return hc
 }
 

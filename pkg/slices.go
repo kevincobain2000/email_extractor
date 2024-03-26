@@ -1,6 +1,10 @@
 package pkg
 
-import "strings"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
 // IsEqualSlice checks if two slices of strings are equal.
 func IsEqualSlice(a, b []string) bool {
@@ -57,4 +61,23 @@ func StringInSlice(str string, list []string) bool {
 		}
 	}
 	return false
+}
+
+func WriteToFile(emails []string, path string) error {
+	// Open the file for writing
+	file, err := os.Create(path)
+	if err != nil {
+		return fmt.Errorf("error creating file: %v", err)
+	}
+	defer file.Close() // Close the file when the function returns
+
+	// Write emails to the file
+	for _, email := range emails {
+		_, err := file.WriteString(email + "\n")
+		if err != nil {
+			return fmt.Errorf("error writing to file: %v", err)
+		}
+	}
+
+	return nil
 }

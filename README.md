@@ -35,18 +35,34 @@ curl -sL https://raw.githubusercontent.com/kevincobain2000/email_extractor/maste
 CLI
 
 ```sh
-./email_extractor --url=
+go run main.go --url=kevincobain2000.github.io
+```
+
+Alternative usages
+
+
+```sh
+# write to a file
+go run main.go --url=kevincobain2000.github.io --o=emails.txt
+#extract from 100 urls
+go run main.go --url=kevincobain2000.github.io --limit=100
 ```
 
 Options
 
 ```sh
--limit int
-    limit of urls to crawl (default 20)
--timeout int
-    timeout in milliseconds (default 1000)
--url string
-    url to crawl
+  -crawl
+    	crawl urls (default true)
+  -limit int
+    	limit of urls to crawl (default 1000)
+  -o string
+    	file to write to
+  -timeout int
+    	timeout in milliseconds (default 10000)
+  -url string
+    	url to crawl
+  -version
+    	prints version
 ```
 
 # Samples
