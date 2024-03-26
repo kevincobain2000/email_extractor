@@ -75,8 +75,6 @@ Options
 
 # Performance
 
-Overall, the command runs that crawled the website `https://medium.com`.
-
 It crawled **1000 urls**, and found **300 email addresses** in about `10 seconds`.
 
 ```sh
