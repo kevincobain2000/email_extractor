@@ -55,18 +55,18 @@ go run main.go --url=kevincobain2000.github.io --limit=100
 Options
 
 ```sh
-  -crawl
-    	crawl urls (default true)
-  -limit int
-    	limit of urls to crawl (default 1000)
-  -o string
-    	file to write to
-  -timeout int
-    	timeout in milliseconds (default 10000)
-  -url string
-    	url to crawl
-  -version
-    	prints version
+-crawl
+    crawl urls (default true)
+-limit int
+    limit of urls to crawl (default 1000)
+-o string
+    file to write to (default "emails.txt")
+-timeout int
+    timeout in milliseconds (default 10000)
+-url string
+    url to crawl
+-version
+    prints version
 ```
 
 # Samples
