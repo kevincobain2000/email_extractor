@@ -77,3 +77,4 @@ Options
 
 - v1 - Python implementation to extract email addresses by crawling URLS. Installation using pip.
 - v2 - 100x performance improvement by using goroutines
+- v2.5 - 2x performance improvement by not opening the same url again

@@ -46,10 +46,21 @@ func main() {
 	wgC.Wait()
 	color.Success.Print("Crawling")
 	color.Secondary.Print("....................")
-	color.Success.Println("Complete")
-	fmt.Println()
+	color.Success.Println("Complete!")
 
-	hc.BrowseAndExtractEmails()
+	hc.Emails = pkg.UniqueStrings(hc.Emails)
+	if f.writeToFile != "" {
+		err := pkg.WriteToFile(hc.Emails, f.writeToFile)
+		if err != nil {
+			color.Danger.Print("Emails")
+			color.Secondary.Print("  ....................")
+			color.Danger.Println("Error writing emails to file", f.writeToFile)
+		} else {
+			color.Success.Print("Emails")
+			color.Secondary.Print("  ....................")
+			color.Success.Println("Success writing emails to file", f.writeToFile)
+		}
+	}
 }
 
 func SetupFlags() {

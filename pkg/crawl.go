@@ -25,7 +25,7 @@ type HTTPChallenge struct {
 	browse *browser.Browser
 
 	urls    []string
-	emails  []string
+	Emails  []string
 	options *Options
 }
 
@@ -61,59 +61,12 @@ func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPCha
 		if StringInSlice(u, hc.urls) {
 			continue
 		}
-		color.Notice.Print("Crawling")
-		color.Secondary.Print("....................")
-		fmt.Println(u)
+
 		mu.Lock()
 		hc.urls = append(hc.urls, u)
 		mu.Unlock()
 		wg.Add(1)
 		go hc.CrawlRecursive(u, wg)
-	}
-	return hc
-}
-
-func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
-	var wg sync.WaitGroup
-	for _, u := range hc.urls {
-		wg.Add(1)
-		go func(url string) {
-			defer wg.Done()
-
-			err := hc.browse.Open(url)
-			if err != nil {
-				return
-			}
-
-			rawBody := hc.browse.Body()
-
-			emails := ExtractEmailsFromText(rawBody)
-			emails = FilterOutCommonExtensions(emails)
-			emails = UniqueStrings(emails)
-			if len(emails) == 0 {
-				return
-			}
-			if hc.options.WriteToFile != "" {
-				hc.emails = append(hc.emails, emails...)
-			}
-			color.Notice.Print("Emails")
-			color.Secondary.Print("  ....................")
-			color.Secondary.Println(fmt.Sprintf("(%d) %s", len(emails), url))
-			for _, email := range emails {
-				color.Secondary.Print("        ....................")
-				color.Success.Println(email)
-			}
-		}(u)
-	}
-	wg.Wait()
-	hc.emails = UniqueStrings(hc.emails)
-	if hc.options.WriteToFile != "" {
-		err := WriteToFile(hc.emails, hc.options.WriteToFile)
-		if err != nil {
-			color.Error.Println("Error writing emails to file", hc.options.WriteToFile)
-		} else {
-			color.Success.Println("Emails successfully written to", hc.options.WriteToFile)
-		}
 	}
 	return hc
 }
@@ -124,6 +77,27 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 	err := hc.browse.Open(url)
 	if err != nil {
 		return urls
+	}
+	color.Secondary.Print("Crawling")
+	color.Secondary.Print("....................")
+	color.Secondary.Println(url)
+	rawBody := hc.browse.Body()
+	emails := ExtractEmailsFromText(rawBody)
+	emails = FilterOutCommonExtensions(emails)
+	emails = UniqueStrings(emails)
+	if len(emails) > 0 {
+		color.Note.Print("Emails")
+		color.Secondary.Print("  ....................")
+		color.Note.Println(fmt.Sprintf("(%d) %s", len(emails), url))
+		for _, email := range emails {
+			// color.Secondary.Print("        ....................")
+			color.Secondary.Print("                            ")
+			color.Success.Println(email)
+		}
+		fmt.Println()
+	}
+	if hc.options.WriteToFile != "" {
+		hc.Emails = append(hc.Emails, emails...)
 	}
 
 	// crawl the page and print all links
