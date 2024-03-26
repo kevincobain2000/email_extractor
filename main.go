@@ -56,7 +56,7 @@ func SetupFlags() {
 	flag.BoolVar(&f.version, "version", false, "prints version")
 	flag.BoolVar(&f.crawl, "crawl", true, "crawl urls")
 	flag.StringVar(&f.url, "url", "", "url to crawl")
-	flag.StringVar(&f.writeToFile, "o", "", "file to write to")
+	flag.StringVar(&f.writeToFile, "o", "emails.txt", "file to write to")
 	flag.IntVar(&f.limit, "limit", 1000, "limit of urls to crawl")
 	flag.Int64Var(&f.timeout, "timeout", 10000, "timeout in milliseconds")
 	flag.Parse()
