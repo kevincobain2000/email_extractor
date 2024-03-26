@@ -73,6 +73,18 @@ Options
 
 ![Screenshot](https://imgur.com/efJfwB3.png)
 
+# Performance
+
+Overall, the command runs that crawled the website `https://medium.com`.
+
+It crawled **1000 urls**, and found **300 email addresses** in about `10 seconds`.
+
+```sh
+╰─$ email_extractor --url=https://medium.com  6.24s user 2.42s system 72% cpu 11.938 total
+╰─$ wc -l emails.txt
+     314 emails.txt
+```
+
 # CHANGE LOG
 
 - v1 - Python implementation to extract email addresses by crawling URLS. Installation using pip.
