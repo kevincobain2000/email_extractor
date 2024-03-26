@@ -71,7 +71,7 @@ Options
 
 # Samples
 
-![Screenshot](https://imgur.com/EDKlBIh.png)
+![Screenshot](https://imgur.com/efJfwB3.png)
 
 # CHANGE LOG
 
