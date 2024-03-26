@@ -67,7 +67,7 @@ func WriteToFile(emails []string, path string) error {
 	// Open the file for writing
 	file, err := os.Create(path)
 	if err != nil {
-		return fmt.Errorf("error creating file: %v", err)
+		return fmt.Errorf("error creating file: %w", err)
 	}
 	defer file.Close() // Close the file when the function returns
 
@@ -75,7 +75,7 @@ func WriteToFile(emails []string, path string) error {
 	for _, email := range emails {
 		_, err := file.WriteString(email + "\n")
 		if err != nil {
-			return fmt.Errorf("error writing to file: %v", err)
+			return fmt.Errorf("error writing to file: %w", err)
 		}
 	}
 
