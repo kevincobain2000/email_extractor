@@ -42,8 +42,12 @@ Alternative usages
 
 
 ```sh
+# Do not crawl urls
+go run main.go --url=kevincobain2000.github.io --crawl=false
+
 # write to a file
 go run main.go --url=kevincobain2000.github.io --o=emails.txt
+
 #extract from 100 urls
 go run main.go --url=kevincobain2000.github.io --limit=100
 ```
