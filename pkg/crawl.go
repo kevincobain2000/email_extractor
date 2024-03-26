@@ -93,7 +93,9 @@ func (hc *HTTPChallenge) BrowseAndExtractEmails() *HTTPChallenge {
 			if len(emails) == 0 {
 				return
 			}
-			hc.emails = append(hc.emails, emails...)
+			if hc.options.WriteToFile != "" {
+				hc.emails = append(hc.emails, emails...)
+			}
 			color.Notice.Print("Emails")
 			color.Secondary.Print("  ....................")
 			color.Secondary.Println(fmt.Sprintf("(%d) %s", len(emails), url))
