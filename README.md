@@ -1,12 +1,26 @@
 # Email Extractor
 
-**With God speed - Extract email addresses from entire website, by crawling URLS.**
+<p align="center">
+<b>With God speed</b> <br> Extract email addresses from entire website, by crawling URLS.
+</p>
 
-**Just 10KB** Binary size
+<p align="center">
+<b>Just</b> <code>10 kilo bytes</code> binary, takes <b>just</b> <code>10 seconds</code> to extract emails from 1000 urls.
+</p>
 
-Web email extractor by url crawl using command line interface. A free utility to extract email address by crawling a given url upto a given depth or number of urls to crawl provided by the user. Email addresses can be extracted from any url. Emails Extractor can be used to extract emails from a given url.
+A free utility to extract email address by crawling a given url upto a given depth or number of urls to crawl provided by the user.
+Web email extractor by url crawl using command line interface. Email addresses can be extracted from any url.
+First it extracts all the number of urls provided by the user and at the same time extracts emails using simple Go routines. This simple application allows to crawl through a website with depth options.
 
-First it extracts all the number of urls provided by the user and then extracts emails using simple Python libraries. This simple application allows to crawl through a website with a max depth of crawling 5000 urls and extracts email addresses and saves to a file.
+
+
+**Quick Setup:** One command to install lighweight binary.
+
+**Blazing speeds:** Extracts by crawling URLS in parallel with light weight cpu.
+
+**Crawling capability:** Crawls entire page, finds the links and extracts email addresses.
+
+**Beautiful:** Colorful output with write to file option.
 
 # C.I
 
@@ -33,13 +47,13 @@ mv email_extractor /usr/local/bin
 
 # Usage
 
-Simple usage
+**Simple usage**
 
 ```sh
 email_extractor -url=kevincobain2000.github.io
 ```
 
-Alternative usages
+**Advanced usages**
 
 
 ```sh
@@ -53,7 +67,7 @@ email_extractor -out=marketing.txt -url=kevincobain2000.github.io
 email_extractor -limit-urls=100 -url=kevincobain2000.github.io
 ```
 
-Options
+**All Options**
 
 ```sh
   -depth int
