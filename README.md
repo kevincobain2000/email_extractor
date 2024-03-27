@@ -103,7 +103,7 @@ email_extractor -limit-urls=100 -url=kevincobain2000.github.io
 
 # Performance
 
-It crawled `5000 urls`, and found `300 email addresses` in about `11 seconds`.
+It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
 
 <p align="center">
   <img alt="bar chart" src='https://instachart.coveritup.app/bar?title=Performance&subtitle=Email+Extractor&output=svg&metric=sec&theme=dark&data={%20%22x%22:%20[%22100%20URLS%22,%20%22500%20URLS%22,%20%221000%20URLS%22],%20%22y%22:%20[[1,6,11]],%20%22names%22:%20[%22Time%20to%20Extract%22]%20}'>

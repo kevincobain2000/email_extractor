@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/gookit/color"
 	"github.com/kevincobain2000/email_extractor/pkg"
@@ -26,11 +27,14 @@ type Flags struct {
 var f Flags
 
 func main() {
+	startTime := time.Now()
+
 	SetupFlags()
 	if f.version {
 		fmt.Println(version)
 		return
 	}
+
 	options := []pkg.Option{
 		func(opt *pkg.Options) error {
 			opt.TimeoutMillisecond = f.timeout
@@ -49,34 +53,37 @@ func main() {
 	hc := pkg.NewHTTPChallenge(options...)
 	hc.CrawlRecursive(f.url, &wgC)
 	wgC.Wait()
-	color.Note.Print("Crawling")
+	fmt.Println()
+	color.Warn.Print("Crawling")
 	color.Secondary.Print("....................")
-	color.Success.Println("Complete!")
-	color.Note.Print("URLs Crawled")
-	color.Secondary.Print("................")
-	color.Note.Println(hc.TotalURLsCrawled)
-	color.Note.Print("URLs with Emails")
-	color.Secondary.Print("............")
-	color.Note.Println(hc.TotalURLsFound)
-
-	color.Note.Print("Ratio")
-	color.Secondary.Print(".......................")
-	color.Note.Println(fmt.Sprintf("%.2f", (float64(hc.TotalURLsFound)/float64(hc.TotalURLsCrawled))*100) + "%")
+	color.Note.Println("Complete!")
+	color.Warn.Print("URLs")
+	color.Secondary.Print("........................")
+	ratio := (float64(hc.TotalURLsFound) / float64(hc.TotalURLsCrawled)) * 100
+	fmt.Printf("%d urls crawled, %d urls with emails (%.2f﹪ hit rate)\n", hc.TotalURLsCrawled, hc.TotalURLsFound, ratio)
 
 	hc.Emails = pkg.UniqueStrings(hc.Emails)
+
+	color.Warn.Print("Unique emails")
+	color.Secondary.Print("...............")
+	fmt.Printf("%d addresses\n", len(hc.Emails))
+
 	if f.writeToFile != "" {
 		err := pkg.WriteToFile(hc.Emails, f.writeToFile)
 		if err != nil {
-			color.Danger.Print("Emails")
-			color.Secondary.Print("  ....................")
+			color.Danger.Print("Output file")
+			color.Secondary.Print("・・・・・・・・")
 			color.Danger.Println("Error writing emails to file", f.writeToFile)
 		} else {
-			color.Note.Print("Emails")
-			color.Secondary.Print("......................")
-			color.Note.Print("Success writing emails to file ")
-			color.Success.Println(f.writeToFile)
+			color.Warn.Print("Output file")
+			color.Secondary.Print(".................")
+			color.Note.Println(f.writeToFile)
 		}
 	}
+	endTime := time.Now()
+	color.Warn.Print("Time taken")
+	color.Secondary.Print("..................")
+	fmt.Println(endTime.Sub(startTime))
 }
 
 func SetupFlags() {
