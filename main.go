@@ -49,9 +49,19 @@ func main() {
 	hc := pkg.NewHTTPChallenge(options...)
 	hc.CrawlRecursive(f.url, &wgC)
 	wgC.Wait()
-	color.Success.Print("Crawling")
+	color.Note.Print("Crawling")
 	color.Secondary.Print("....................")
 	color.Success.Println("Complete!")
+	color.Note.Print("URLs Crawled")
+	color.Secondary.Print("................")
+	color.Note.Println(hc.TotalURLsCrawled)
+	color.Note.Print("URLs with Emails")
+	color.Secondary.Print("............")
+	color.Note.Println(hc.TotalURLsFound)
+
+	color.Note.Print("Ratio")
+	color.Secondary.Print(".......................")
+	color.Note.Println(fmt.Sprintf("%.2f", (float64(hc.TotalURLsFound)/float64(hc.TotalURLsCrawled))*100) + "%")
 
 	hc.Emails = pkg.UniqueStrings(hc.Emails)
 	if f.writeToFile != "" {
@@ -61,9 +71,10 @@ func main() {
 			color.Secondary.Print("  ....................")
 			color.Danger.Println("Error writing emails to file", f.writeToFile)
 		} else {
-			color.Success.Print("Emails")
-			color.Secondary.Print("  ....................")
-			color.Success.Println("Success writing emails to file", f.writeToFile)
+			color.Note.Print("Emails")
+			color.Secondary.Print("......................")
+			color.Note.Print("Success writing emails to file ")
+			color.Success.Println(f.writeToFile)
 		}
 	}
 }

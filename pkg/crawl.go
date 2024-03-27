@@ -27,9 +27,11 @@ type Option func(*Options) error
 type HTTPChallenge struct {
 	browse *browser.Browser
 
-	urls    []string
-	Emails  []string
-	options *Options
+	urls             []string
+	Emails           []string
+	TotalURLsCrawled int
+	TotalURLsFound   int
+	options          *Options
 }
 
 func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
@@ -78,6 +80,7 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 	if err != nil {
 		return urls
 	}
+	hc.TotalURLsCrawled++
 	if hc.options.SleepMillisecond > 0 {
 		color.Secondary.Print("Sleeping")
 		color.Secondary.Print("....................")
@@ -92,8 +95,9 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 	emails = FilterOutCommonExtensions(emails)
 	emails = UniqueStrings(emails)
 	if len(emails) > 0 {
+		hc.TotalURLsFound++
 		color.Note.Print("Emails")
-		color.Secondary.Print("  ....................")
+		color.Secondary.Print("......................")
 		color.Note.Println(fmt.Sprintf("(%d) %s", len(emails), url))
 		for _, email := range emails {
 			color.Secondary.Print("                            ")
