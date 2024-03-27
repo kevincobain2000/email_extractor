@@ -62,6 +62,8 @@ Options
     limit of urls to crawl (default 1000)
 -o string
     file to write to (default "emails.txt")
+-sleep int
+    sleep in milliseconds before each request to avoid getting blocked
 -timeout int
     timeout in milliseconds (default 10000)
 -url string

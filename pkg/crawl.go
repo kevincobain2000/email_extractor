@@ -14,6 +14,7 @@ import (
 
 type Options struct {
 	TimeoutMillisecond int64
+	SleepMillisecond   int64
 	Limit              int
 	Crawl              bool
 	WriteToFile        string
@@ -78,6 +79,12 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 	if err != nil {
 		return urls
 	}
+	if hc.options.SleepMillisecond > 0 {
+		color.Secondary.Print("Sleeping")
+		color.Secondary.Print("....................")
+		color.Secondary.Println(fmt.Sprintf("%dms", hc.options.SleepMillisecond))
+		time.Sleep(time.Duration(hc.options.SleepMillisecond) * time.Millisecond)
+	}
 	color.Secondary.Print("Crawling")
 	color.Secondary.Print("....................")
 	color.Secondary.Println(url)
@@ -90,7 +97,6 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		color.Secondary.Print("  ....................")
 		color.Note.Println(fmt.Sprintf("(%d) %s", len(emails), url))
 		for _, email := range emails {
-			// color.Secondary.Print("        ....................")
 			color.Secondary.Print("                            ")
 			color.Success.Println(email)
 		}
