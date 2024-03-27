@@ -27,15 +27,16 @@ First it extracts all the number of urls provided by the user and then extracts 
 
 ```sh
 curl -sL https://raw.githubusercontent.com/kevincobain2000/email_extractor/master/install.sh | sh
+mv email_extractor /usr/local/bin
 ```
 
 
 # Usage
 
-CLI
+Simple usage
 
 ```sh
-go run main.go --url=kevincobain2000.github.io
+email_extractor --url=kevincobain2000.github.io
 ```
 
 Alternative usages
@@ -43,13 +44,13 @@ Alternative usages
 
 ```sh
 # Do not crawl urls
-go run main.go --url=kevincobain2000.github.io --crawl=false
+email_extractor --url=kevincobain2000.github.io --crawl=false
 
 # write to a file
-go run main.go --url=kevincobain2000.github.io --o=emails.txt
+email_extractor --url=kevincobain2000.github.io --o=marketing.txt
 
 #extract from 100 urls
-go run main.go --url=kevincobain2000.github.io --limit=100
+email_extractor --url=kevincobain2000.github.io --limit=100
 ```
 
 Options
@@ -75,12 +76,14 @@ Options
 
 # Performance
 
-It crawled **1000 urls**, and found **300 email addresses** in about `10 seconds`.
+It crawled `1000 urls`, and found `300 email addresses` in about `10 seconds`.
 
 ```sh
-╰─$ email_extractor --url=https://medium.com  6.24s user 2.42s system 72% cpu 11.938 total
+╰─$ time email_extractor --url=https://medium.com
+    6.24s user 2.42s system 72% cpu 11.938 total
+
 ╰─$ wc -l emails.txt
-     314 emails.txt
+    314 emails.txt
 ```
 
 # CHANGE LOG
