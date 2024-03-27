@@ -17,7 +17,7 @@ type Flags struct {
 	crawl       bool
 	url         string
 	writeToFile string
-	limit       int
+	limitUrls   int
 	timeout     int64
 	sleep       int64
 }
@@ -34,9 +34,10 @@ func main() {
 		func(opt *pkg.Options) error {
 			opt.TimeoutMillisecond = f.timeout
 			opt.SleepMillisecond = f.sleep
-			opt.Limit = f.limit
+			opt.LimitUrls = f.limitUrls
 			opt.Crawl = f.crawl
 			opt.WriteToFile = f.writeToFile
+			opt.Url = f.url
 			return nil
 		},
 	}
@@ -69,7 +70,7 @@ func SetupFlags() {
 	flag.StringVar(&f.url, "url", "", "url to crawl")
 	flag.StringVar(&f.writeToFile, "o", "emails.txt", "file to write to")
 
-	flag.IntVar(&f.limit, "limit", 1000, "limit of urls to crawl")
+	flag.IntVar(&f.limitUrls, "limit-urls", 1000, "limit of urls to crawl")
 	flag.Int64Var(&f.timeout, "timeout", 10000, "timeout limit in milliseconds for request")
 	flag.Int64Var(&f.sleep, "sleep", 0, "sleep in milliseconds before each request to avoid getting blocked")
 

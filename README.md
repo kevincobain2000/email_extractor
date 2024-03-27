@@ -44,13 +44,13 @@ Alternative usages
 
 ```sh
 # Do not crawl urls
-email_extractor --url=kevincobain2000.github.io --crawl=false
+email_extractor --crawl=false --url=kevincobain2000.github.io
 
 # write to a file
-email_extractor --url=kevincobain2000.github.io --o=marketing.txt
+email_extractor --o=marketing.txt --url=kevincobain2000.github.io
 
 #extract from 100 urls
-email_extractor --url=kevincobain2000.github.io --limit=100
+email_extractor --limit=100 --url=kevincobain2000.github.io
 ```
 
 Options
@@ -58,7 +58,7 @@ Options
 ```sh
 -crawl
     crawl urls (default true)
--limit int
+-limit-urls int
     limit of urls to crawl (default 1000)
 -o string
     file to write to (default "emails.txt")

@@ -15,7 +15,8 @@ import (
 type Options struct {
 	TimeoutMillisecond int64
 	SleepMillisecond   int64
-	Limit              int
+	Url                string
+	LimitUrls          int
 	Crawl              bool
 	WriteToFile        string
 }
@@ -56,7 +57,7 @@ func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPCha
 	}
 	var mu sync.Mutex
 	for _, u := range urls {
-		if len(hc.urls) >= hc.options.Limit {
+		if len(hc.urls) >= hc.options.LimitUrls {
 			break
 		}
 		if StringInSlice(u, hc.urls) {
