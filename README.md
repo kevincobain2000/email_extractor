@@ -72,12 +72,15 @@ email_extractor -limit-urls=100 -url=kevincobain2000.github.io
 ```sh
   -depth int
     	depth of urls to crawl.
-    	-1 for infinite depth
-    	0 for no depth, only the url provided
-    	1 for only the url provided and links from the url provided until the first level
-    	2 for only the url provided and links from the url provided until the second level (default -1)
+    	-1 for the url provided & all depths (default)
+    	0  for the url provided only
+    	1  for the url provided & until the first level
+    	2  for the url provided & until the second level (default -1)
   -ignore-queries
-    	ignore query params in the url (default true)
+    	ignore query params in the url
+    	Note: pagination links are usually query params
+    	Set it to false, if you want to crawl such links
+    	 (default true)
   -limit-urls int
     	limit of urls to crawl (default 1000)
   -out string
