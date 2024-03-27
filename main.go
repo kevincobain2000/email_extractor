@@ -86,16 +86,19 @@ func SetupFlags() {
 	flag.IntVar(&f.limitUrls, "limit-urls", 1000, "limit of urls to crawl")
 
 	flag.IntVar(&f.depth, "depth", -1, `depth of urls to crawl.
--1 for infinite depth
-0 for no depth, only the url provided
-1 for only the url provided and links from the url provided until the first level
-2 for only the url provided and links from the url provided until the second level`)
+-1 for the url provided & all depths (default)
+0  for the url provided only
+1  for the url provided & until the first level
+2  for the url provided & until the second level`)
 
 	flag.Int64Var(&f.timeout, "timeout", 10000, "timeout limit in milliseconds for each request")
 	flag.Int64Var(&f.sleep, "sleep", 0, "sleep in milliseconds before each request to avoid getting blocked")
 
 	flag.BoolVar(&f.version, "version", false, "prints version")
-	flag.BoolVar(&f.ignoreQueries, "ignore-queries", true, "ignore query params in the url")
+	flag.BoolVar(&f.ignoreQueries, "ignore-queries", true, `ignore query params in the url
+Note: pagination links are usually query params
+Set it to false, if you want to crawl such links
+`)
 	flag.Parse()
 
 	if !strings.HasPrefix(f.url, "http") {

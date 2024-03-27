@@ -41,7 +41,7 @@ First it extracts all the number of urls provided by the user and at the same ti
 
 ```sh
 curl -sL https://raw.githubusercontent.com/kevincobain2000/email_extractor/master/install.sh | sh
-mv email_extractor /usr/local/bin
+mv email_extractor /usr/local/bin/
 ```
 
 
