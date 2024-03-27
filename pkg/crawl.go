@@ -15,9 +15,10 @@ import (
 type Options struct {
 	TimeoutMillisecond int64
 	SleepMillisecond   int64
-	Url                string
+	URL                string
+	IgnoreQueries      bool
+	Depth              int
 	LimitUrls          int
-	Crawl              bool
 	WriteToFile        string
 }
 
@@ -52,9 +53,7 @@ func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
 func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPChallenge {
 	defer wg.Done()
 	urls := hc.Crawl(url)
-	if !hc.options.Crawl {
-		urls = []string{url}
-	}
+
 	var mu sync.Mutex
 	for _, u := range urls {
 		if len(hc.urls) >= hc.options.LimitUrls {
@@ -75,7 +74,6 @@ func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPCha
 
 func (hc *HTTPChallenge) Crawl(url string) []string {
 	urls := []string{}
-	urls = append(urls, url)
 	err := hc.browse.Open(url)
 	if err != nil {
 		return urls
@@ -115,12 +113,27 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		}
 		href = hc.relativeToAbsoluteURL(href)
 
-		href = RemoveAnyQueryParam(href)
-		href = RemoveAnyAnchors(href)
-		isSubset := IsSameDomain(url, href)
-		if isSubset {
-			urls = append(urls, href)
+		if hc.options.IgnoreQueries {
+			href = RemoveAnyQueryParam(href)
 		}
+		href = RemoveAnyAnchors(href)
+		isSubset := IsSameDomain(hc.options.URL, href)
+		if !isSubset {
+			return
+		}
+		if hc.options.Depth != -1 {
+			depth := URLDepth(href, hc.options.URL)
+			if depth == -1 {
+				return
+			}
+			if depth == 0 {
+				return
+			}
+			if depth > hc.options.Depth {
+				return
+			}
+		}
+		urls = append(urls, href)
 	})
 	urls = UniqueStrings(urls)
 	return urls

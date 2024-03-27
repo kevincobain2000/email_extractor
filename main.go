@@ -13,13 +13,14 @@ import (
 var version = "dev"
 
 type Flags struct {
-	version     bool
-	crawl       bool
-	url         string
-	writeToFile string
-	limitUrls   int
-	timeout     int64
-	sleep       int64
+	version       bool
+	ignoreQueries bool
+	url           string
+	writeToFile   string
+	limitUrls     int
+	depth         int
+	timeout       int64
+	sleep         int64
 }
 
 var f Flags
@@ -35,9 +36,10 @@ func main() {
 			opt.TimeoutMillisecond = f.timeout
 			opt.SleepMillisecond = f.sleep
 			opt.LimitUrls = f.limitUrls
-			opt.Crawl = f.crawl
 			opt.WriteToFile = f.writeToFile
-			opt.Url = f.url
+			opt.URL = f.url
+			opt.Depth = f.depth
+			opt.IgnoreQueries = f.ignoreQueries
 			return nil
 		},
 	}
@@ -68,14 +70,21 @@ func main() {
 
 func SetupFlags() {
 	flag.StringVar(&f.url, "url", "", "url to crawl")
-	flag.StringVar(&f.writeToFile, "o", "emails.txt", "file to write to")
+	flag.StringVar(&f.writeToFile, "out", "emails.txt", "file to write to")
 
 	flag.IntVar(&f.limitUrls, "limit-urls", 1000, "limit of urls to crawl")
-	flag.Int64Var(&f.timeout, "timeout", 10000, "timeout limit in milliseconds for request")
+
+	flag.IntVar(&f.depth, "depth", -1, `depth of urls to crawl.
+-1 for infinite depth
+0 for no depth, only the url provided
+1 for only the url provided and links from the url provided until the first level
+2 for only the url provided and links from the url provided until the second level`)
+
+	flag.Int64Var(&f.timeout, "timeout", 10000, "timeout limit in milliseconds for each request")
 	flag.Int64Var(&f.sleep, "sleep", 0, "sleep in milliseconds before each request to avoid getting blocked")
 
-	flag.BoolVar(&f.crawl, "crawl", true, "crawl urls")
 	flag.BoolVar(&f.version, "version", false, "prints version")
+	flag.BoolVar(&f.ignoreQueries, "ignore-queries", true, "ignore query params in the url")
 	flag.Parse()
 
 	if !strings.HasPrefix(f.url, "http") {

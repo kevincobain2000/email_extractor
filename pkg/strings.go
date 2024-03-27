@@ -27,6 +27,36 @@ func IsSameDomain(u1, u2 string) bool {
 	return parsedURL1.Host == parsedURL2.Host
 }
 
+func URLDepth(u, referenceURL string) int {
+	refURL, err := url.Parse(referenceURL)
+	if err != nil {
+		return -1 // Error parsing reference URL
+	}
+
+	parsedURL, err := url.Parse(u)
+	if err != nil {
+		return -1 // Error parsing URL
+	}
+
+	refPath := strings.TrimSuffix(refURL.Path, "/")
+	parsedPath := strings.TrimSuffix(parsedURL.Path, "/")
+
+	if !strings.HasPrefix(parsedPath, refPath) {
+		return 0 // No common path prefix, depth is 0
+	}
+
+	relPath := strings.TrimPrefix(parsedPath, refPath)
+	depth := strings.Count(relPath, "/")
+
+	if relPath == "" {
+		return 0 // URL is the same as the reference URL, depth is 0
+	}
+
+	// Count the number of segments, including root ("/")
+	// depth++
+	return depth
+}
+
 func RemoveAnyQueryParam(u string) string {
 	if strings.Contains(u, "?") {
 		return strings.Split(u, "?")[0]
