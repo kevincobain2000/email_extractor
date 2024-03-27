@@ -22,6 +22,8 @@ First it extracts all the number of urls provided by the user and at the same ti
 
 **Beautiful:** Colorful output with write to file option.
 
+**Dependecy Free:** No need to install any dependencies from `pip`, `npm`. Just download and run.
+
 # C.I
 
 ![go-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&type=go-build-time&branch=master)
@@ -101,15 +103,11 @@ email_extractor -limit-urls=100 -url=kevincobain2000.github.io
 
 # Performance
 
-It crawled `1000 urls`, and found `300 email addresses` in about `10 seconds`.
+It crawled `5000 urls`, and found `300 email addresses` in about `11 seconds`.
 
-```sh
-╰─$ time email_extractor -url=https://medium.com
-    6.24s user 2.42s system 72% cpu 11.938 total
-
-╰─$ wc -l emails.txt
-    314 emails.txt
-```
+<p align="center">
+  <img alt="bar chart" src='https://instachart.coveritup.app/bar?title=Performance&subtitle=Email+Extractor&width=320&height=380&output=svg&metric=sec&theme=dark&data={%20%22x%22:%20[%22100%20URLS%22,%20%22500%20URLS%22,%20%221000%20URLS%22],%20%22y%22:%20[[1,6,11]],%20%22names%22:%20[%22Time%20to%20Extract%22]%20}'>
+</p>
 
 # CHANGE LOG
 
