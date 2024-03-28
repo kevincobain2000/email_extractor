@@ -96,10 +96,10 @@ func SetupFlags() {
 	flag.IntVar(&f.limitEmails, "limit-emails", 1000, "limit of emails to crawl")
 
 	flag.IntVar(&f.depth, "depth", -1, `depth of urls to crawl.
--1 for the url provided & all depths (default)
-0  for the url provided only
-1  for the url provided & until the first level
-2  for the url provided & until the second level`)
+-1 for url provided & all depths (both backward and forward)
+0  for url provided (only this)
+1  for url provided & until first level (forward)
+2  for url provided & until second level (forward)`)
 
 	flag.Int64Var(&f.timeout, "timeout", 10000, "timeout limit in milliseconds for each request")
 	flag.Int64Var(&f.sleep, "sleep", 0, "sleep in milliseconds before each request to avoid getting blocked")
