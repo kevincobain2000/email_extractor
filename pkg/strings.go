@@ -88,3 +88,15 @@ func ExtractEmailsFromText(text string) []string {
 
 	return emails
 }
+
+func RelativeToAbsoluteURL(href, currentURL, baseURL string) string {
+	if strings.HasPrefix(href, "http") {
+		return href
+	}
+
+	if strings.HasPrefix(href, "/") {
+		return baseURL + href
+	}
+
+	return currentURL + href
+}

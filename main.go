@@ -19,6 +19,7 @@ type Flags struct {
 	url           string
 	writeToFile   string
 	limitUrls     int
+	limitEmails   int
 	depth         int
 	timeout       int64
 	sleep         int64
@@ -40,6 +41,7 @@ func main() {
 			opt.TimeoutMillisecond = f.timeout
 			opt.SleepMillisecond = f.sleep
 			opt.LimitUrls = f.limitUrls
+			opt.LimitEmails = f.limitEmails
 			opt.WriteToFile = f.writeToFile
 			opt.URL = f.url
 			opt.Depth = f.depth
@@ -91,6 +93,7 @@ func SetupFlags() {
 	flag.StringVar(&f.writeToFile, "out", "emails.txt", "file to write to")
 
 	flag.IntVar(&f.limitUrls, "limit-urls", 1000, "limit of urls to crawl")
+	flag.IntVar(&f.limitEmails, "limit-emails", 1000, "limit of emails to crawl")
 
 	flag.IntVar(&f.depth, "depth", -1, `depth of urls to crawl.
 -1 for the url provided & all depths (default)

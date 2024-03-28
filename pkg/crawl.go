@@ -2,7 +2,6 @@ package pkg
 
 import (
 	"fmt"
-	"strings"
 	"sync"
 	"time"
 
@@ -19,6 +18,7 @@ type Options struct {
 	IgnoreQueries      bool
 	Depth              int
 	LimitUrls          int
+	LimitEmails        int
 	WriteToFile        string
 }
 
@@ -59,6 +59,10 @@ func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPCha
 	var mu sync.Mutex
 	for _, u := range urls {
 		if len(hc.urls) >= hc.options.LimitUrls {
+			break
+		}
+		if len(hc.Emails) >= hc.options.LimitEmails {
+			hc.Emails = hc.Emails[:hc.options.LimitEmails]
 			break
 		}
 		if StringInSlice(u, hc.urls) {
@@ -107,6 +111,7 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 	}
 	if hc.options.WriteToFile != "" {
 		hc.Emails = append(hc.Emails, emails...)
+		hc.Emails = UniqueStrings(hc.Emails)
 	}
 
 	// crawl the page and print all links
@@ -115,7 +120,7 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		if !exists {
 			return
 		}
-		href = hc.relativeToAbsoluteURL(href)
+		href = RelativeToAbsoluteURL(href, url, GetBaseURL(url))
 
 		if hc.options.IgnoreQueries {
 			href = RemoveAnyQueryParam(href)
@@ -141,11 +146,4 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 	})
 	urls = UniqueStrings(urls)
 	return urls
-}
-
-func (hc *HTTPChallenge) relativeToAbsoluteURL(href string) string {
-	if !strings.HasPrefix(href, "http") && !strings.HasPrefix(href, "//") {
-		href = fmt.Sprintf("%s://%s%s", hc.browse.Url().Scheme, hc.browse.Url().Host, href)
-	}
-	return href
 }

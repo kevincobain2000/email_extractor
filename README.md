@@ -83,6 +83,8 @@ email_extractor -limit-urls=100 -url=kevincobain2000.github.io
     	Note: pagination links are usually query params
     	Set it to false, if you want to crawl such links
     	 (default true)
+  -limit-emails int
+    	limit of emails to crawl (default 1000)
   -limit-urls int
     	limit of urls to crawl (default 1000)
   -out string
@@ -115,3 +117,4 @@ It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
 - v2.0 - 100x performance improvement by using goroutines
 - v2.5 - 2x performance improvement by not opening the same url again
 - v2.6 - Added depth of crawling urls
+- v2.7 - Limit emails addresses, and possible fix on relative urls
