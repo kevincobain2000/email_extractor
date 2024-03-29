@@ -101,7 +101,7 @@ email_extractor -limit-urls=100 -url=kevincobain2000.github.io
 
 # Samples
 
-![Screenshot](https://imgur.com/efJfwB3.png)
+![Screenshot](https://imgur.com/P9dLjUf.png)
 
 # Performance
 
