@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 	"time"
 
@@ -72,25 +73,36 @@ func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPCha
 		mu.Lock()
 		hc.urls = append(hc.urls, u)
 		mu.Unlock()
-		wg.Add(1)
-		go hc.CrawlRecursive(u, wg)
+
+		if runtime.NumGoroutine() > 10000 {
+			color.Warn.Print("Sleeping")
+			color.Secondary.Print("....................")
+			color.Secondary.Println(fmt.Sprintf("%ds (goroutines %d, exceeded limit)", 10, runtime.NumGoroutine()))
+			time.Sleep(10 * time.Second)
+			wg.Add(1)
+			go hc.CrawlRecursive(u, wg)
+		} else {
+			wg.Add(1)
+			go hc.CrawlRecursive(u, wg)
+		}
 	}
 	return hc
 }
 
 func (hc *HTTPChallenge) Crawl(url string) []string {
+	if hc.options.SleepMillisecond > 0 {
+		color.Secondary.Print("Sleeping")
+		color.Secondary.Print("....................")
+		color.Secondary.Println(fmt.Sprintf("%dms (sleeping before request)", hc.options.SleepMillisecond))
+		time.Sleep(time.Duration(hc.options.SleepMillisecond) * time.Millisecond)
+	}
 	urls := []string{}
 	err := hc.browse.Open(url)
 	if err != nil {
 		return urls
 	}
 	hc.TotalURLsCrawled++
-	if hc.options.SleepMillisecond > 0 {
-		color.Secondary.Print("Sleeping")
-		color.Secondary.Print("....................")
-		color.Secondary.Println(fmt.Sprintf("%dms", hc.options.SleepMillisecond))
-		time.Sleep(time.Duration(hc.options.SleepMillisecond) * time.Millisecond)
-	}
+
 	color.Secondary.Print("Crawling")
 	color.Secondary.Print("....................")
 	color.Secondary.Println(url)
