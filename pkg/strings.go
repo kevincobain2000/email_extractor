@@ -52,8 +52,6 @@ func URLDepth(u, referenceURL string) int {
 		return 0 // URL is the same as the reference URL, depth is 0
 	}
 
-	// Count the number of segments, including root ("/")
-	// depth++
 	return depth
 }
 
@@ -97,6 +95,33 @@ func RelativeToAbsoluteURL(href, currentURL, baseURL string) string {
 	if strings.HasPrefix(href, "/") {
 		return baseURL + href
 	}
+	if strings.HasPrefix(href, "./") {
+		return currentURL + href[2:]
+	}
 
 	return currentURL + href
+}
+
+func CountPerDomain(emails []string) map[string]int {
+	domainCounts := make(map[string]int)
+
+	for _, email := range emails {
+		parts := strings.Split(email, "@")
+		if len(parts) == 2 {
+			domain := parts[1]
+			domainCounts[domain]++
+		}
+	}
+
+	return domainCounts
+}
+
+func IsAnAsset(url string) bool {
+	commonAssetExtensions := []string{".pdf", ".png", ".jpg", ".jpeg", ".gif", ".svg", ".css", ".js", ".ico", ".pdf"}
+	for _, ext := range commonAssetExtensions {
+		if strings.HasSuffix(url, ext) {
+			return true
+		}
+	}
+	return false
 }

@@ -90,6 +90,11 @@ func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPCha
 }
 
 func (hc *HTTPChallenge) Crawl(url string) []string {
+	// check if url doesn't end with pdf, png or jpg
+	if IsAnAsset(url) {
+		return []string{}
+	}
+
 	if hc.options.SleepMillisecond > 0 {
 		color.Secondary.Print("Sleeping")
 		color.Secondary.Print("....................")
@@ -105,7 +110,12 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 
 	color.Secondary.Print("Crawling")
 	color.Secondary.Print("....................")
-	color.Secondary.Println(url)
+	if hc.browse.StatusCode() >= 400 {
+		color.Danger.Print(hc.browse.StatusCode())
+	} else {
+		color.Success.Print(hc.browse.StatusCode())
+	}
+	color.Secondary.Println(" " + url)
 	rawBody := hc.browse.Body()
 	emails := ExtractEmailsFromText(rawBody)
 	emails = FilterOutCommonExtensions(emails)
@@ -116,7 +126,7 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		color.Secondary.Print("......................")
 		color.Note.Println(fmt.Sprintf("(%d) %s", len(emails), url))
 		for _, email := range emails {
-			color.Secondary.Print("                            ")
+			color.Secondary.Print("                            📧 ")
 			color.Success.Println(email)
 		}
 		fmt.Println()

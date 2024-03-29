@@ -56,9 +56,10 @@ func main() {
 	hc.CrawlRecursive(f.url, &wgC)
 	wgC.Wait()
 	fmt.Println()
+	color.Secondary.Println("-------------------------------------")
 	color.Warn.Print("Crawling")
 	color.Secondary.Print("....................")
-	color.Note.Println("Complete!")
+	color.Success.Println("Complete!")
 	color.Warn.Print("URLs")
 	color.Secondary.Print("........................")
 	ratio := (float64(hc.TotalURLsFound) / float64(hc.TotalURLsCrawled)) * 100
@@ -69,6 +70,23 @@ func main() {
 	color.Warn.Print("Unique emails")
 	color.Secondary.Print("...............")
 	fmt.Printf("%d addresses\n", len(hc.Emails))
+
+	if len(hc.Emails) > 0 {
+		countPerDomain := pkg.CountPerDomain(hc.Emails)
+		color.Warn.Print("Domains")
+		color.Secondary.Print(".....................")
+		fmt.Printf("%d domains\n", len(countPerDomain))
+		i := 0
+		for domain, count := range countPerDomain {
+			i++
+			color.Secondary.Print("                            ")
+			if i > 5 {
+				color.Secondary.Print(fmt.Sprintf("%d more domains\n", len(countPerDomain)-i+1))
+				break
+			}
+			fmt.Printf("(%d) %s \n", count, domain)
+		}
+	}
 
 	if f.writeToFile != "" {
 		err := pkg.WriteToFile(hc.Emails, f.writeToFile)
