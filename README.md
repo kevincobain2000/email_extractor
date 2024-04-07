@@ -89,6 +89,8 @@ email_extractor -limit-urls=100 -url=kevincobain2000.github.io
     	limit of urls to crawl (default 1000)
   -out string
     	file to write to (default "emails.txt")
+  -parallel
+    	crawl urls in parallel (default true)
   -sleep int
     	sleep in milliseconds before each request to avoid getting blocked
   -timeout int

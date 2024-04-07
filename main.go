@@ -16,6 +16,7 @@ var version = "dev"
 type Flags struct {
 	version       bool
 	ignoreQueries bool
+	parallel      bool
 	url           string
 	writeToFile   string
 	limitUrls     int
@@ -50,11 +51,16 @@ func main() {
 		},
 	}
 
-	var wgC sync.WaitGroup
-	wgC.Add(1)
 	hc := pkg.NewHTTPChallenge(options...)
-	hc.CrawlRecursive(f.url, &wgC)
-	wgC.Wait()
+	if f.parallel {
+		var wgC sync.WaitGroup
+		wgC.Add(1)
+		hc.CrawlRecursiveParallel(f.url, &wgC)
+		wgC.Wait()
+	} else {
+		hc.CrawlRecursive(f.url)
+	}
+
 	fmt.Println()
 	color.Secondary.Println("-------------------------------------")
 	color.Warn.Print("Crawling")
@@ -127,6 +133,7 @@ func SetupFlags() {
 Note: pagination links are usually query params
 Set it to false, if you want to crawl such links
 `)
+	flag.BoolVar(&f.parallel, "parallel", true, "crawl urls in parallel")
 	flag.Parse()
 
 	if !strings.HasPrefix(f.url, "http") {

@@ -53,7 +53,7 @@ func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
 	}
 }
 
-func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPChallenge {
+func (hc *HTTPChallenge) CrawlRecursiveParallel(url string, wg *sync.WaitGroup) *HTTPChallenge {
 	defer wg.Done()
 	urls := hc.Crawl(url)
 
@@ -80,11 +80,32 @@ func (hc *HTTPChallenge) CrawlRecursive(url string, wg *sync.WaitGroup) *HTTPCha
 			color.Secondary.Println(fmt.Sprintf("%ds (goroutines %d, exceeded limit)", 10, runtime.NumGoroutine()))
 			time.Sleep(10 * time.Second)
 			wg.Add(1)
-			go hc.CrawlRecursive(u, wg)
+			go hc.CrawlRecursiveParallel(u, wg)
 		} else {
 			wg.Add(1)
-			go hc.CrawlRecursive(u, wg)
+			go hc.CrawlRecursiveParallel(u, wg)
 		}
+	}
+	return hc
+}
+func (hc *HTTPChallenge) CrawlRecursive(url string) *HTTPChallenge {
+	urls := hc.Crawl(url)
+
+	for _, u := range urls {
+		if len(hc.urls) >= hc.options.LimitUrls {
+			break
+		}
+		if len(hc.Emails) >= hc.options.LimitEmails {
+			hc.Emails = hc.Emails[:hc.options.LimitEmails]
+			break
+		}
+		if StringInSlice(u, hc.urls) {
+			continue
+		}
+
+		hc.urls = append(hc.urls, u)
+
+		hc.CrawlRecursive(u)
 	}
 	return hc
 }
