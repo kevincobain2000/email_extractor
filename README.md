@@ -121,3 +121,4 @@ It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
 - v2.6 - Added depth of crawling urls
 - v2.8 - Limit emails addresses, and possible fix on relative urls
 - v2.10 - Adds hint for status code
+- v2.12 - Option to do in parallel and better messaging
