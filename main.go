@@ -81,7 +81,7 @@ func main() {
 		countPerDomain := pkg.CountPerDomain(hc.Emails)
 		color.Warn.Print("Domains")
 		color.Secondary.Print(".....................")
-		fmt.Printf("%d domains\n", len(countPerDomain))
+		fmt.Printf("%d email domains\n", len(countPerDomain))
 		i := 0
 		for domain, count := range countPerDomain {
 			i++
@@ -90,7 +90,7 @@ func main() {
 				color.Secondary.Print(fmt.Sprintf("%d more domains\n", len(countPerDomain)-i+1))
 				break
 			}
-			fmt.Printf("(%d) %s \n", count, domain)
+			fmt.Printf("(%d) @%s \n", count, domain)
 		}
 	}
 
@@ -109,7 +109,9 @@ func main() {
 	endTime := time.Now()
 	color.Warn.Print("Time taken")
 	color.Secondary.Print("..................")
-	fmt.Println(endTime.Sub(startTime))
+	durationInSeconds := float64(endTime.Sub(startTime).Seconds())
+	formattedDuration := fmt.Sprintf("%.2f seconds", durationInSeconds)
+	fmt.Println(formattedDuration)
 }
 
 func SetupFlags() {
