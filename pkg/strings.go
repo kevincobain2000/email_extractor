@@ -79,7 +79,7 @@ func GetBaseURL(u string) string {
 
 func ExtractEmailsFromText(text string) []string {
 	// Regular expression to match email addresses
-	re := regexp.MustCompile(`[a-zA-Z0-9._%+-]+([@]|[(\[{<]at[)\]}>])[\w.-]+([.]|[(\[{<]dot[)\]}>])\w{2,}`)
+	re := regexp.MustCompile(`[a-zA-Z0-9._%+-]+([@]|[(\[{<]at[)\]}>])[a-zA-Z0-9.-]+([.]|[(\[{<]dot[)\]}>])\w[a-zA-Z]{2,}`)
 
 	// Find all email addresses in the text
 	emails := re.FindAllString(text, -1)
