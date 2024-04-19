@@ -84,6 +84,18 @@ func ExtractEmailsFromText(text string) []string {
 	// Find all email addresses in the text
 	emails := re.FindAllString(text, -1)
 
+	// Replace the obfuscated "at" and "dot" with "@" and "."
+	replacementFunc := func(match string) string {
+		match = regexp.MustCompile(`[(\[{<]at[)\]}>]`).ReplaceAllString(match, "@")
+		match = regexp.MustCompile(`[(\[{<]dot[)\]}>]`).ReplaceAllString(match, ".")
+		return match
+	}
+
+	// Apply the replacement function to each found email
+	for i, email := range emails {
+		emails[i] = replacementFunc(email)
+	}
+
 	return emails
 }
 
