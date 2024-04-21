@@ -79,10 +79,22 @@ func GetBaseURL(u string) string {
 
 func ExtractEmailsFromText(text string) []string {
 	// Regular expression to match email addresses
-	re := regexp.MustCompile(`[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}`)
+	re := regexp.MustCompile(`[a-zA-Z0-9._%+-]+([@]|[(\[{<]at[)\]}>])[a-zA-Z0-9.-]+([.]|[(\[{<]dot[)\]}>])\w[a-zA-Z]{2,}`)
 
 	// Find all email addresses in the text
 	emails := re.FindAllString(text, -1)
+
+	// Replace the obfuscated "at" and "dot" with "@" and "."
+	replacementFunc := func(match string) string {
+		match = regexp.MustCompile(`[(\[{<]at[)\]}>]`).ReplaceAllString(match, "@")
+		match = regexp.MustCompile(`[(\[{<]dot[)\]}>]`).ReplaceAllString(match, ".")
+		return match
+	}
+
+	// Apply the replacement function to each found email
+	for i, email := range emails {
+		emails[i] = replacementFunc(email)
+	}
 
 	return emails
 }
