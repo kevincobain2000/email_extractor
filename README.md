@@ -22,7 +22,7 @@ First it extracts all the number of urls provided by the user and at the same ti
 
 **Beautiful:** Colorful output with write to file option.
 
-**Dependecy Free:** No need to install any dependencies from `pip`, `npm`. Just download and run.
+**Dependency Free:** No need to install any dependencies from `pip`, `npm`. Just download and run.
 
 # C.I
 
