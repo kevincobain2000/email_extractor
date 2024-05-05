@@ -12,7 +12,11 @@ A free utility to extract email address by crawling a given url upto a given dep
 Web email extractor by url crawl using command line interface. Email addresses can be extracted from any url.
 First it extracts all the number of urls provided by the user and at the same time extracts emails using simple Go routines. This simple application allows to crawl through a website with depth options.
 
-
+<p align="center">
+  <a href="https://email-extractor.coveritup.app">
+    <img alt="free email extractor online app url" src="https://imgur.com/z9nS7xm.png" width="460">
+  </a>
+</p>
 
 **Quick Setup:** One command to install lighweight binary.
 
@@ -26,17 +30,21 @@ First it extracts all the number of urls provided by the user and at the same ti
 
 # C.I
 
-![go-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&type=go-build-time&branch=master)
-![go-test-runtime](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&type=go-test-runtime&branch=master)
-![coverage](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&type=coverage&branch=master)
-![go-binary-size](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&type=go-binary-size&branch=master)
-![go-mod-dependencies](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&type=go-mod-dependencies&branch=master)
+![go-build-time](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time)
+![go-test-runtime](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime)
+![coverage](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage)
+![go-binary-size](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size)
+![go-mod-dependencies](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies)
+![npm-install-time](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time)
+![npm-build-time](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time)
 
-![go-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&type=go-build-time&output=svg&width=160&height=160&branch=master&line=fill)
-![go-test-runtime](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&type=go-test-runtime&output=svg&width=160&height=160&branch=master&line=fill)
-![coverage](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&type=coverage&output=svg&width=160&height=160&branch=master)
-![go-binary-size](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&type=go-binary-size&output=svg&width=160&height=160&branch=master)
-![go-mod-dependencies](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&type=go-mod-dependencies&output=svg&width=160&height=160&branch=master&line=fill)
+![go-build-time](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time&theme=dark&line=fill&width=175&height=160)
+![go-test-runtime](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime&theme=dark&line=fill&width=175&height=160)
+![coverage](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage&theme=dark&line=fill&width=175&height=160)
+![go-binary-size](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size&theme=dark&line=fill&width=175&height=160)
+![go-mod-dependencies](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies&theme=dark&line=fill&width=175&height=160)
+![npm-install-time](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time&theme=dark&line=fill&width=175&height=160)
+![npm-build-time](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time&theme=dark&line=fill&width=175&height=160)
 
 
 # Install
