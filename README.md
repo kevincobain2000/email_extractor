@@ -38,13 +38,13 @@ First it extracts all the number of urls provided by the user and at the same ti
 ![npm-install-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-install-time)
 ![npm-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-build-time)
 
-![go-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-build-time&theme=dark&line=fill&width=175&height=160)
-![go-test-runtime](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-test-runtime&theme=dark&line=fill&width=175&height=160)
-![coverage](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=coverage&theme=dark&line=fill&width=175&height=160)
-![go-binary-size](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-binary-size&theme=dark&line=fill&width=175&height=160)
-![go-mod-dependencies](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-mod-dependencies&theme=dark&line=fill&width=175&height=160)
-![npm-install-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-install-time&theme=dark&line=fill&width=175&height=160)
-![npm-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-build-time&theme=dark&line=fill&width=175&height=160)
+![go-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-build-time&theme=light&line=fill&width=175&height=160)
+![go-test-runtime](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-test-runtime&theme=light&line=fill&width=175&height=160)
+![coverage](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=coverage&theme=light&line=fill&width=175&height=160)
+![go-binary-size](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-binary-size&theme=light&line=fill&width=175&height=160)
+![go-mod-dependencies](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-mod-dependencies&theme=light&line=fill&width=175&height=160)
+![npm-install-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-install-time&theme=light&line=fill&width=175&height=160)
+![npm-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-build-time&theme=light&line=fill&width=175&height=160)
 
 
 # Install
@@ -126,7 +126,7 @@ email_extractor --port=8080
 It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
 
 <p align="center">
-  <img alt="bar chart" src='https://instachart.coveritup.app/bar?title=Performance&subtitle=Email+Extractor&output=svg&metric=sec&theme=dark&data={%20%22x%22:%20[%22100%20URLS%22,%20%22500%20URLS%22,%20%221000%20URLS%22],%20%22y%22:%20[[1,6,11]],%20%22names%22:%20[%22Time%20to%20Extract%22]%20}'>
+  <img alt="bar chart" src='https://instachart.coveritup.app/bar?title=Performance&subtitle=Email+Extractor&output=svg&metric=sec&theme=light&data={%20%22x%22:%20[%22100%20URLS%22,%20%22500%20URLS%22,%20%221000%20URLS%22],%20%22y%22:%20[[1,6,11]],%20%22names%22:%20[%22Time%20to%20Extract%22]%20}'>
 </p>
 
 # Development notes
