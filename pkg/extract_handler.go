@@ -28,7 +28,7 @@ func (h *ExtractHandler) Get(c echo.Context) error {
 	if err := BindRequest(c, req); err != nil {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
 	}
-	if !IsUrl(req.URL) {
+	if !IsURL(req.URL) {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, "url is not valid")
 	}
 	defaults.SetDefaults(req)
@@ -61,7 +61,7 @@ func (h *ExtractHandler) Get(c echo.Context) error {
 	return nil
 }
 
-func IsUrl(str string) bool {
+func IsURL(str string) bool {
 	u, err := url.Parse(str)
 	return err == nil && u.Scheme != "" && u.Host != ""
 }

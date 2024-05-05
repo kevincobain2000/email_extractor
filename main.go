@@ -29,7 +29,7 @@ type Flags struct {
 	host    string
 	port    string
 	cors    string
-	baseUrl string
+	baseURL string
 }
 
 var f Flags
@@ -46,8 +46,8 @@ func main() {
 		return
 	}
 
-	if f.host != "" && f.url == "https://" {
-		pkg.StartEcho(pkg.NewEcho(f.baseUrl, publicDir, f.cors), f.host, f.port)
+	if f.url == "https://" {
+		pkg.StartEcho(pkg.NewEcho(f.baseURL, publicDir, f.cors), f.host, f.port)
 		return
 	}
 
@@ -154,7 +154,7 @@ Set it to false, if you want to crawl such links
 	flag.StringVar(&f.host, "host", "localhost", "host to serve")
 	flag.StringVar(&f.port, "port", "3004", "port to serve")
 	flag.StringVar(&f.cors, "cors", "", "cors port to allow")
-	flag.StringVar(&f.baseUrl, "base-url", "/", "base url with slash")
+	flag.StringVar(&f.baseURL, "base-url", "/", "base url with slash")
 	flag.Parse()
 
 	if !strings.HasPrefix(f.url, "http") {

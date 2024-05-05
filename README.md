@@ -52,11 +52,16 @@ mv email_extractor /usr/local/bin/
 **Simple usage**
 
 ```sh
+# using web GUI
+email_extractor
+
+# or using CLI
 email_extractor -url=kevincobain2000.github.io
 ```
 
 **Advanced usages**
 
+Cli application
 
 ```sh
 # Do not crawl urls
@@ -67,6 +72,9 @@ email_extractor -out=marketing.txt -url=kevincobain2000.github.io
 
 #extract from 100 urls
 email_extractor -limit-urls=100 -url=kevincobain2000.github.io
+
+# run on a different port (for web GUI)
+email_extractor --port=8080
 ```
 
 **All Options**
@@ -113,6 +121,18 @@ It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
   <img alt="bar chart" src='https://instachart.coveritup.app/bar?title=Performance&subtitle=Email+Extractor&output=svg&metric=sec&theme=dark&data={%20%22x%22:%20[%22100%20URLS%22,%20%22500%20URLS%22,%20%221000%20URLS%22],%20%22y%22:%20[[1,6,11]],%20%22names%22:%20[%22Time%20to%20Extract%22]%20}'>
 </p>
 
+# Development notes
+
+```sh
+# for backend
+air # or go run main.go
+
+# for frontend
+cd fronend
+npm install
+npm run dev
+```
+
 # CHANGE LOG
 
 - v1.0 - Python implementation to extract email addresses by crawling URLS. Installation using pip.
@@ -122,3 +142,4 @@ It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
 - v2.8 - Limit emails addresses, and possible fix on relative urls
 - v2.10 - Adds hint for status code
 - v2.12 - Option to do in parallel and better messaging
+- v3.0 - Web UI

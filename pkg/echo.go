@@ -49,6 +49,7 @@ func HTTPErrorHandler(err error, c echo.Context) {
 	SetHeadersResponseJSON(c.Response().Header())
 	code := http.StatusInternalServerError
 	var message interface{}
+	// nolint: errorlint
 	if he, ok := err.(*echo.HTTPError); ok {
 		code = he.Code
 		message = he.Message
@@ -66,8 +67,8 @@ func HTTPErrorHandler(err error, c echo.Context) {
 }
 
 func ltsv() string {
-	time_custom := "2006-01-02 15:04:05"
-	_ = time_custom
+	timeCustom := "2006-01-02 15:04:05"
+	_ = timeCustom
 	var format string
 	format += "time:${time_custom}\t"
 	format += "host:${remote_ip}\t"

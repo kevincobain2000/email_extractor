@@ -15,7 +15,7 @@ type FaviconHandler struct {
 func NewFaviconHandler(favicon *embed.FS) *FaviconHandler {
 	return &FaviconHandler{
 		favicon:  favicon,
-		filename: FAVICON_FILE,
+		filename: faviconFile,
 	}
 }
 
