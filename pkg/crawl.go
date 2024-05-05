@@ -1,8 +1,10 @@
 package pkg
 
 import (
+	"encoding/json"
 	"fmt"
 	"runtime"
+	"strings"
 	"sync"
 	"time"
 
@@ -10,6 +12,7 @@ import (
 	"github.com/gookit/color"
 	"github.com/headzoo/surf"
 	"github.com/headzoo/surf/browser"
+	"github.com/labstack/echo/v4"
 )
 
 type Options struct {
@@ -44,7 +47,7 @@ func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
 		}
 	}
 	b := surf.NewBrowser()
-	b.SetUserAgent("Go/email_extractor")
+	b.SetUserAgent("GO kevincobain2000/email_extractor")
 	b.SetTimeout(time.Duration(opt.TimeoutMillisecond) * time.Millisecond)
 
 	return &HTTPChallenge{
@@ -110,6 +113,78 @@ func (hc *HTTPChallenge) CrawlRecursive(url string) *HTTPChallenge {
 	return hc
 }
 
+func (hc *HTTPChallenge) CrawlRecursiveStream(url string, c echo.Context, enc *json.Encoder) *HTTPChallenge {
+	urls := hc.Crawl(url)
+
+	for _, u := range urls {
+		select {
+		case <-c.Request().Context().Done():
+			color.Secondary.Print("API.........................")
+			color.Warn.Println("Request Cancelled")
+			return nil
+		default:
+		}
+
+		if len(hc.urls) >= hc.options.LimitUrls {
+			c.Request().Context().Done()
+			return hc
+		}
+		if len(hc.Emails) >= hc.options.LimitEmails {
+			hc.Emails = hc.Emails[:hc.options.LimitEmails]
+			c.Request().Context().Done()
+			return hc
+		}
+		if StringInSlice(u, hc.urls) {
+			continue
+		}
+		if IsAnAsset(u) {
+			continue
+		}
+		p := "status" + "_SPLIT_DELIMETER_" + u
+		err := enc.Encode(p)
+		if err != nil {
+			color.Secondary.Print("API.........................")
+			color.Danger.Println(err.Error())
+		}
+		c.Response().Flush()
+
+		hc.urls = append(hc.urls, u)
+
+		err = hc.browse.Head(url)
+		if err != nil {
+			continue
+		}
+		if !strings.HasPrefix(hc.browse.ResponseHeaders().Get("Content-Type"), "text/html") {
+			continue
+		}
+		err = hc.browse.Open(u)
+		if err != nil {
+			color.Secondary.Print("API.........................")
+			color.Danger.Println(err.Error())
+			continue
+		}
+
+		rawBody := hc.browse.Body()
+
+		emails := ExtractEmailsFromText(rawBody)
+		emails = FilterOutCommonExtensions(emails)
+		emails = UniqueStrings(emails)
+		hc.Emails = append(hc.Emails, emails...)
+		for _, email := range emails {
+			p := email + "_SPLIT_DELIMETER_" + u
+			err := enc.Encode(p)
+			if err != nil {
+				color.Secondary.Print("API.........................")
+				color.Danger.Println(err.Error())
+			}
+			c.Response().Flush()
+		}
+
+		hc.CrawlRecursiveStream(u, c, enc)
+	}
+	return hc
+}
+
 func (hc *HTTPChallenge) Crawl(url string) []string {
 	// check if url doesn't end with pdf, png or jpg
 	if IsAnAsset(url) {
@@ -123,10 +198,19 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		time.Sleep(time.Duration(hc.options.SleepMillisecond) * time.Millisecond)
 	}
 	urls := []string{}
-	err := hc.browse.Open(url)
+	err := hc.browse.Head(url)
 	if err != nil {
 		return urls
 	}
+	if !strings.HasPrefix(hc.browse.ResponseHeaders().Get("Content-Type"), "text/html") {
+		return urls
+	}
+
+	err = hc.browse.Open(url)
+	if err != nil {
+		return urls
+	}
+
 	hc.TotalURLsCrawled++
 
 	color.Secondary.Print("Crawling")
@@ -138,6 +222,7 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 	}
 	color.Secondary.Println(" " + url)
 	rawBody := hc.browse.Body()
+
 	emails := ExtractEmailsFromText(rawBody)
 	emails = FilterOutCommonExtensions(emails)
 	emails = UniqueStrings(emails)
@@ -173,6 +258,7 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		if !isSubset {
 			return
 		}
+
 		if hc.options.Depth != -1 {
 			depth := URLDepth(href, hc.options.URL)
 			if depth == -1 {

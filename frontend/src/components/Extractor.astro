@@ -1,0 +1,191 @@
+---
+import search from '@assets/search.svg?raw';
+import spinner from '@assets/spinner.svg?raw';
+const baseURL = import.meta.env.PUBLIC_BASE_URL;
+---
+
+<div class="mx-auto" id="data" data-base-url={baseURL}>
+    <p class="text-violet-400 font-bold text-center text-4xl select-none pt-20">
+        Online Email Extractor
+    </p>
+
+    <hr class="w-48 h-1 mx-auto bg-gray-500 border-0 rounded my-10" />
+    <p class="text-center  text-slate-400 font-semibold select-none">
+        <span class=" text-slate-500">Free <b class="text-green-500">online</b> tool to extract emails from any
+            URL,
+            by crawling depth.
+        </span>
+        <br>
+        <br>
+        <span class="text-sm text-slate-500 font-mono">Press <b class="text-white">CMD + A</b> to select all
+            results</span>
+    </p>
+
+    <div class="max-w-md mx-auto mt-10 select-none">
+        <div class="relative">
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <Fragment set:html={search} />
+            </div>
+            <input type="search" x-model="input.url" x-on:change.debounce="extractEmails($event)"
+                class="block font-mono w-full p-3 ps-10 text-sm text-slate-300 hover:text-slate-100 border border-gray-300 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
+                placeholder="https://" required />
+            <button x-bind:disabled="loading.fetching" type="button" x-on:click="submit"
+                class="text-white disabled:text-slate-400 absolute end-2.5 bottom-1.5 bg-blue-700 disabled:bg-gray-700 hover:bg-blue-800 focus:outline-none font-bold rounded-lg text-sm px-4 py-2">
+                <template x-if="loading.fetching">
+                    <Fragment set:html={spinner} />
+                </template>
+                <template x-if="!loading.fetching">
+                    <span>Extract</span>
+                </template>
+                <template x-if="loading.fetching">
+                    <span>Crawling</span>
+                </template>
+            </button>
+        </div>
+    </div>
+
+    <span x-text="loading.error" class="text-red-500 text-sm text-center block mt-5"></span>
+    <div class="text-center text-sm pt-5">
+        crawls: <span x-text="loading.counterCrawls" class=" text-green-300 font-bold"></span>
+        hits: <span x-text="loading.counterHits" class=" text-green-500 font-bold"></span>
+    </div>
+    <div class="text-center text-sm pt-1 block">
+        ➠ <span x-text="loading.url" class="text-blue-300"></span>
+    </div>
+    <template x-if="result.data.length > 0">
+        <div class="overflow-x-auto mt-10 rounded xl:mr-32 xl:ml-32">
+            <table class="w-full text-sm font-mono text-left text-gray-400">
+                <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">#</th>
+                        <th scope="col" class="px-6 py-3">Email</th>
+                        <th scope="col" class="px-6 py-3">URL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template x-for="(item, index) in result.data">
+                        <tr class="border-b bg-gray-800 border-gray-700">
+                            <td class="px-6 py-4" x-text="result.data.length - index"> </td>
+                            <th scope="row" class="px-6 py-4 font-medium text-white" x-text="item.email">
+                            </th>
+                            <td class="px-6 py-4" x-text="item.url"> </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
+    </template>
+</div>
+
+<script is:inline src="//unpkg.com/alpinejs"></script>
+<script is:inline>
+    const currentURL = window.location.origin;
+    let baseURL =
+        document.querySelector("[data-base-url]")?.getAttribute("data-base-url") ||
+        currentURL;
+    baseURL = baseURL.startsWith("http") ? baseURL : currentURL + baseURL;
+    let input = {
+        url: "",
+    }
+    let result = Alpine.reactive({
+        data: [],
+        progressURL: "",
+    });
+    let loading = Alpine.reactive({
+        fetching: false,
+        url: "",
+        counterCrawls: 0,
+        counterHits: 0,
+        error: "",
+    });
+    const isURL = (str) => {
+        const pattern = new RegExp(
+            "^(https?:\\/\\/)?" + // protocol
+            "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+            "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+            "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+            "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+            "(\\#[-a-z\\d_]*)?$",
+            "i"
+        ); // fragment locator
+        return !!pattern.test(str);
+    };
+
+    const extractEmails = async ($event) => {
+        input.url = $event.target.value.trim();
+        if (loading.fetching) {
+            loading.error = "Processing error: Already processing another URL";
+            return;
+        }
+        if (!isURL(input.url)) {
+            loading.error = "Input error: Invalid URL";
+            return;
+        }
+        result.data = [];
+        loading.fetching = true;
+        loading.url = input.url;
+        loading.counterCrawls = 0;
+        loading.counterHits = 0;
+        loading.error = "";
+
+        // stream api
+        const response = await fetch(`${baseURL}/api/extract?url=${input.url}`);
+        if (!response.ok) {
+            loading.fetching = false;
+            loading.url = "";
+            loading.error = "Error: (" + response.status + ") " + response.statusText;
+            return;
+        }
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        while (true) {
+            const {
+                done,
+                value
+            } = await reader.read();
+            if (done) {
+                loading.fetching = false;
+                loading.url = "";
+                break;
+            }
+            let tsv = decoder.decode(value);
+
+            for (let v of tsv.split("\n")) {
+                v = v.replace(/^"|"$/g, "");
+                split = v.split("_SPLIT_DELIMETER_");
+                if (split.length !== 2) {
+                    continue;
+                }
+                if (split[0] == "status") {
+                    loading.counterCrawls++;
+                    loading.url = split[1];
+                }
+                if (!split[0].includes("@")) {
+                    continue;
+                }
+                if (
+                    result.data.some(
+                        (item) => item.email === split[0] && item.url === split[1]
+                    )
+                ) {
+                    continue;
+                }
+                loading.counterHits++;
+                result.data = [{
+                    email: split[0],
+                    url: split[1]
+                }, ...result.data];
+            }
+        }
+    };
+    const submit = async () => {};
+    const data = {
+        input,
+        extractEmails,
+        submit,
+    };
+    document.getElementById("data").setAttribute("x-data", JSON.stringify(data));
+    Alpine.start();
+</script>
+
+<style></style>
