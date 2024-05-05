@@ -32,6 +32,20 @@ jobs:
           go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
           curl -sLk https://raw.githubusercontent.com/kevincobain2000/cover-totalizer/master/install.sh | sh
 
+      - name: NPM Install
+        uses: kevincobain2000/action-coveritup@v2
+        with:
+          type: npm-install-time
+          command: cd frontend; npm install
+          record: runtime
+
+      - name: NPM Build
+        uses: kevincobain2000/action-coveritup@v2
+        with:
+          type: npm-build-time
+          command: cd frontend; npm run build
+          record: runtime
+
       - name: Go Mod Tidy
         run: go mod tidy
       - name: Go Build

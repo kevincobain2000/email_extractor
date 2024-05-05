@@ -103,6 +103,10 @@ func RelativeToAbsoluteURL(href, currentURL, baseURL string) string {
 	if strings.HasPrefix(href, "http") {
 		return href
 	}
+	// ignore if it is javascript:void(0)
+	if strings.HasPrefix(href, "javascript:void(0)") {
+		return ""
+	}
 
 	if strings.HasPrefix(href, "/") {
 		return baseURL + href
