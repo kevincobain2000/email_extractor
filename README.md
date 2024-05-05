@@ -30,21 +30,21 @@ First it extracts all the number of urls provided by the user and at the same ti
 
 # C.I
 
-![go-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time)
-![go-test-runtime](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime)
-![coverage](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage)
-![go-binary-size](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size)
-![go-mod-dependencies](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies)
-![npm-install-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time)
-![npm-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time)
+![go-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-build-time)
+![go-test-runtime](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-test-runtime)
+![coverage](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=coverage)
+![go-binary-size](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-binary-size)
+![go-mod-dependencies](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-mod-dependencies)
+![npm-install-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-install-time)
+![npm-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-build-time)
 
-![go-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time&theme=dark&line=fill&width=175&height=160)
-![go-test-runtime](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime&theme=dark&line=fill&width=175&height=160)
-![coverage](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage&theme=dark&line=fill&width=175&height=160)
-![go-binary-size](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size&theme=dark&line=fill&width=175&height=160)
-![go-mod-dependencies](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies&theme=dark&line=fill&width=175&height=160)
-![npm-install-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time&theme=dark&line=fill&width=175&height=160)
-![npm-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time&theme=dark&line=fill&width=175&height=160)
+![go-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-build-time&theme=dark&line=fill&width=175&height=160)
+![go-test-runtime](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-test-runtime&theme=dark&line=fill&width=175&height=160)
+![coverage](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=coverage&theme=dark&line=fill&width=175&height=160)
+![go-binary-size](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-binary-size&theme=dark&line=fill&width=175&height=160)
+![go-mod-dependencies](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-mod-dependencies&theme=dark&line=fill&width=175&height=160)
+![npm-install-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-install-time&theme=dark&line=fill&width=175&height=160)
+![npm-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-build-time&theme=dark&line=fill&width=175&height=160)
 
 
 # Install
