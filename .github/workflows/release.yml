@@ -18,6 +18,17 @@ jobs:
         with:
           version: 'mod'
 
+      - name: Setup Node.js ${{ matrix.node-versions }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+
+      - name: Build Dist for Embed
+        working-directory: frontend
+        run: |
+          npm install
+          npm run build
+
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v3
         with:
