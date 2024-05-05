@@ -30,21 +30,21 @@ First it extracts all the number of urls provided by the user and at the same ti
 
 # C.I
 
-![go-build-time](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time)
-![go-test-runtime](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime)
-![coverage](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage)
-![go-binary-size](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size)
-![go-mod-dependencies](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies)
-![npm-install-time](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time)
-![npm-build-time](coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time)
+![go-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time)
+![go-test-runtime](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime)
+![coverage](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage)
+![go-binary-size](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size)
+![go-mod-dependencies](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies)
+![npm-install-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time)
+![npm-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time)
 
-![go-build-time](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time&theme=dark&line=fill&width=175&height=160)
-![go-test-runtime](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime&theme=dark&line=fill&width=175&height=160)
-![coverage](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage&theme=dark&line=fill&width=175&height=160)
-![go-binary-size](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size&theme=dark&line=fill&width=175&height=160)
-![go-mod-dependencies](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies&theme=dark&line=fill&width=175&height=160)
-![npm-install-time](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time&theme=dark&line=fill&width=175&height=160)
-![npm-build-time](coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time&theme=dark&line=fill&width=175&height=160)
+![go-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-build-time&theme=dark&line=fill&width=175&height=160)
+![go-test-runtime](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-test-runtime&theme=dark&line=fill&width=175&height=160)
+![coverage](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=coverage&theme=dark&line=fill&width=175&height=160)
+![go-binary-size](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-binary-size&theme=dark&line=fill&width=175&height=160)
+![go-mod-dependencies](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=go-mod-dependencies&theme=dark&line=fill&width=175&height=160)
+![npm-install-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-install-time&theme=dark&line=fill&width=175&height=160)
+![npm-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&type=npm-build-time&theme=dark&line=fill&width=175&height=160)
 
 
 # Install
