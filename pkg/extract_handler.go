@@ -24,8 +24,9 @@ func NewExtractHandler() *ExtractHandler {
 }
 
 type ExtractorRequest struct {
-	URL   string `json:"url"  query:"url" validate:"required" message:"url is required"`
-	Depth int    `json:"depth" query:"depth" validate:"numeric" message:"depth must be a number"`
+	URL           string `json:"url"  query:"url" validate:"required" message:"url is required"`
+	Depth         int    `json:"depth" query:"depth" validate:"numeric" message:"depth must be a number"`
+	IgnoreQueries bool   `json:"ignore_queries" query:"ignore_queries"`
 }
 
 func (h *ExtractHandler) Get(c echo.Context) error {

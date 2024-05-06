@@ -57,28 +57,28 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         <div class="pt-10">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-500">Depth</label>
-                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="-1" required />
+                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-400">Depth</label>
+                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="-1" />
+                </div>
+                <div>
+                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-400">Ignore Queries</label>
+                    <input disabled type="tel" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="true" />
                 </div>
                 <div>
                     <label for="first_name" class="block mb-2 text-sm font-medium text-slate-500">Limit URLs</label>
-                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="100" required />
+                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="100 disabled" />
                 </div>
                 <div>
                     <label for="first_name" class="block mb-2 text-sm font-medium text-slate-500">Limit Emails</label>
-                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="1000" required />
-                </div>
-                <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-500">Ignore Queries</label>
-                    <input disabled type="tel" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="true" required />
+                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="1000 disabled" />
                 </div>
             </div>
         </div>
     </div>
     <br>
     <div class="inline-flex items-center justify-center w-full select-none">
-        <hr class="w-64 h-px my-8 bg-gray-500 border-0 dark:bg-gray-700">
-        <span class="absolute px-3 py-1 font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700">Output</span>
+        <hr class="w-48 h-px my-8 bg-gray-500 border-0 dark:bg-gray-700">
+        <span class="absolute px-3 py-1 text-sm font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700">OUTPUT</span>
     </div>
 
     <div class="text-center text-sm pt-5 select-none">
@@ -87,7 +87,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         <span class="font-semibold pl-5">HITS #</span><span x-text="loading.counterHits"
             class=" text-green-500 font-bold"></span>
     </div>
-    <div class="text-center text-sm pt-1 block">
+    <div class="text-center text-sm pt-1 block select-none">
         ➠ <span x-text="loading.url" class="text-blue-300"></span>
     </div>
     <template x-if="result.data.length > 0">
