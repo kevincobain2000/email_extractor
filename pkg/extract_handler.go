@@ -24,7 +24,8 @@ func NewExtractHandler() *ExtractHandler {
 }
 
 type ExtractorRequest struct {
-	URL string `json:"url"  query:"url" validate:"required" message:"url is required"`
+	URL   string `json:"url"  query:"url" validate:"required" message:"url is required"`
+	Depth int    `json:"depth" query:"depth" validate:"numeric" message:"depth must be a number"`
 }
 
 func (h *ExtractHandler) Get(c echo.Context) error {
@@ -51,7 +52,7 @@ func (h *ExtractHandler) Get(c echo.Context) error {
 	opts := []CrawlOption{
 		func(o *CrawlOptions) error {
 			o.TimeoutMillisecond = 1000
-			o.SleepMillisecond = 0
+			o.SleepMillisecond = 10
 			o.URL = req.URL
 			o.IgnoreQueries = true
 			o.Depth = -1
