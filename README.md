@@ -13,7 +13,7 @@ Web email extractor by url crawl using command line interface. Email addresses c
 First it extracts all the number of urls provided by the user and at the same time extracts emails using simple Go routines. This simple application allows to crawl through a website with depth options.
 
 <p align="center">
-  <a href="https://coveritup.app">
+  <a href="https://email-extractor.coveritup.app">
     <img alt="free email extractor online app url" src="https://imgur.com/z9nS7xm.png" width="460">
   </a>
 </p>
