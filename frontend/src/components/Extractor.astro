@@ -4,8 +4,11 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
 
 <div class="mx-auto" id="data" data-base-url={baseURL}>
   <p class="text-violet-400 font-bold text-center text-4xl select-none pt-20">
-    Free - Online Email Extractor
+    <span class="bg-clip-text text-transparent bg-gradient-to-r from-green-400 via-pink-500 to-purple-500 pl-4">Free</span> Online Email Extractor
+    <br>
+
   </p>
+
 
   <hr class="w-24 h-1 mx-auto bg-gray-500 border-0 rounded my-10" />
   <p class="text-center text-slate-400 font-semibold select-none">
@@ -34,7 +37,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         for="first_name"
         class="block mb-2 text-sm font-bold text-slate-300"
       >
-        URL <sup class="text-xs font-medium text-red-400">*required</sup>
+        URL <sup class="text-xs font-medium text-rose-300">*required</sup>
       </label>
       <input
         type="search"
@@ -76,10 +79,10 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
     </div>
     <span
       x-text="loading.error"
-      class="text-red-300 text-sm font-bold text-center block mt-5"></span>
+      class="text-rose-300 text-sm font-bold text-center block mt-5"></span>
     <pre
       x-text="loading.errorJSON"
-      class="text-red-200 text-sm text-center block mt-2 text-wrap">
+      class="text-rose-200 text-sm text-center block mt-2 text-wrap">
     </pre>
     <div class="pt-10">
       <div class="grid gap-6 mb-6 md:grid-cols-2">
@@ -178,14 +181,14 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         <tbody>
           <template x-for="(item, index) in result.data">
             <tr class="border-b bg-gray-800 border-gray-700">
-              <td class="px-3 py-2" x-text="result.data.length - index"> </td>
+              <td class="px-3 py-2 w-1/12" x-text="result.data.length - index"> </td>
               <th
                 scope="row"
                 class="px-3 py-2 font-medium text-white"
                 x-text="item.email"
               >
               </th>
-              <td class="px-3 py-2">
+              <td class="px-3 py-2 w-2/3">
                 <a
                   x-bind:href="item.url"
                   target="_blank"
@@ -209,7 +212,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
   baseURL = baseURL.startsWith("http") ? baseURL : currentURL + baseURL;
   let input = Alpine.reactive({
     url: "",
-    depth: 1,
+    depth: 10,
     ignore_queries: true,
     limit_urls: 1000,
     limit_emails: 10000,
