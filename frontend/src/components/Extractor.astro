@@ -27,11 +27,13 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
                         d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
                 </svg>
             </div>
-            <label for="first_name" class="block mb-2 text-sm font-bold text-slate-300">URL to Crawl</label>
-            <input type="search" x-model="input.url" x-on:change.debounce="extractEmails($event)"
+            <label for="first_name" class="block mb-2 text-sm font-bold text-slate-300">
+                URL <sup class="text-xs text-red-700">*required</sup>
+            </label>
+            <input type="search" id="input-url"
                 class="block font-mono w-full p-3 ps-10 text-sm text-slate-300 hover:text-slate-100 border border-gray-300 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
                 placeholder="https://" required />
-            <button x-bind:disabled="loading.fetching" type="button" x-on:click="submit"
+            <button x-bind:disabled="loading.fetching" type="button" @click="submit"
                 class="text-white disabled:text-slate-400 absolute end-2.5 bottom-1.5 bg-blue-700 disabled:bg-gray-700 hover:bg-blue-800 focus:outline-none font-bold rounded-lg text-sm px-4 py-2">
                 <template x-if="loading.fetching">
                     <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
@@ -53,43 +55,52 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
             </button>
         </div>
         <span x-text="loading.error" class="text-red-300 text-sm font-bold text-center block mt-5"></span>
-        <pre x-text="loading.errorJSON" class="text-red-200 text-sm text-center block mt-2"></pre>
+        <pre x-text="loading.errorJSON" class="text-red-200 text-sm text-center block mt-2 text-wrap"></pre>
         <div class="pt-10">
             <div class="grid gap-6 mb-6 md:grid-cols-2">
                 <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-400">Depth</label>
-                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="-1" />
+                    <label for="input-depth" class="block mb-2 text-sm font-medium text-slate-400">
+                        Depth <sup class="text-xs text-slate-500">-1 to 5</sup>
+                    </label>
+                    <input id="input-depth" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="-1" />
                 </div>
                 <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-400">Ignore Queries</label>
-                    <input disabled type="tel" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="true" />
+                    <label for="input-ignore-queries" class="block mb-2 text-sm font-medium text-slate-400">
+                        Depth <sup class="text-xs text-slate-500">true or false</sup>
+                    </label>
+                    <input id="input-ignore-queries" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="true" pattern="true|false" />
                 </div>
                 <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-500">Limit URLs</label>
-                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="100 disabled" />
+                    <label for="input-limit-urls" class="block mb-2 text-sm font-medium text-slate-400">
+                        Limit URLS <sup class="text-xs text-slate-500">max 1000</sup>
+                    </label>
+                    <input id="input-limit-urls" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="-1" />
                 </div>
                 <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-slate-500">Limit Emails</label>
-                    <input disabled type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="1000 disabled" />
+                    <label for="input-limit-emails" class="block mb-2 text-sm font-medium text-slate-400">
+                        Limit Emails <sup class="text-xs text-slate-500">max 10000</sup>
+                    </label>
+                    <input id="input-limit-emails" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="true" pattern="true|false" />
                 </div>
             </div>
         </div>
     </div>
     <br>
     <div class="inline-flex items-center justify-center w-full select-none">
-        <hr class="w-48 h-px my-8 bg-gray-500 border-0 dark:bg-gray-700">
-        <span class="absolute px-3 py-1 text-sm font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700">OUTPUT</span>
+        <hr class="w-1/2 h-px my-8 border-0 bg-gray-700">
+        <span class="absolute px-8 py-1 text-sm font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700">
+            Status
+             <span x-text="loading.url" class="text-blue-200 font-medium font-mono"></span>
+        </span>
     </div>
 
     <div class="text-center text-sm pt-5 select-none">
-        <span class="font-semibold">CRAWLS #</span><span x-text="loading.counterCrawls"
+        <span class="font-semibold">Crawls <span class="text-slate-500">#</span></span><span x-text="loading.counterCrawls"
             class=" text-green-300 font-bold"></span>
-        <span class="font-semibold pl-5">HITS #</span><span x-text="loading.counterHits"
+        <span class="font-semibold pl-5">Hits <span class="text-slate-500">#</span></span><span x-text="loading.counterHits"
             class=" text-green-500 font-bold"></span>
     </div>
-    <div class="text-center text-sm pt-1 block select-none">
-        ➠ <span x-text="loading.url" class="text-blue-300"></span>
-    </div>
+
     <template x-if="result.data.length > 0">
         <div class="overflow-x-auto mt-10 rounded xl:mr-32 xl:ml-32">
             <table class="w-full text-sm font-mono text-left text-gray-400">
@@ -124,12 +135,20 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         document.querySelector("[data-base-url]")?.getAttribute("data-base-url") ||
         currentURL;
     baseURL = baseURL.startsWith("http") ? baseURL : currentURL + baseURL;
-    let input = {
+    let input = Alpine.reactive({
         url: "",
-    }
+        depth: 2,
+        ignore_queries: true,
+        limit_urls: 1000,
+        limit_emails: 10000,
+    });
+    document.getElementById("input-url").value = input.url;
+    document.getElementById("input-depth").value = input.depth;
+    document.getElementById("input-ignore-queries").value = input.ignore_queries;
+    document.getElementById("input-limit-urls").value = input.limit_urls;
+    document.getElementById("input-limit-emails").value = input.limit_emails;
     let result = Alpine.reactive({
         data: [],
-        progressURL: "",
     });
     let loading = Alpine.reactive({
         fetching: false,
@@ -152,8 +171,13 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         return !!pattern.test(str);
     };
 
-    const extractEmails = async ($event) => {
-        input.url = $event.target.value.trim();
+    const submit = async () => {
+        input.url = document.getElementById("input-url").value.trim()
+        input.depth = document.getElementById("input-depth").value.trim()
+        input.ignore_queries = document.getElementById("input-ignore-queries").value.trim()
+        input.limit_urls = document.getElementById("input-limit-urls").value.trim()
+        input.limit_emails = document.getElementById("input-limit-emails").value.trim()
+
         if (loading.fetching) {
             loading.error = "Processing error: Already processing another URL";
             return;
@@ -172,7 +196,12 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         loading.errorJSON = "";
 
         // stream api
-        const response = await fetch(`${baseURL}/api/extract?url=${input.url}`);
+        const response = await fetch(`${baseURL}/api/extract?depth=${input.depth}&ignore_queries=${input.ignore_queries}&limit_urls=${input.limit_urls}&limit_emails=${input.limit_emails}&url=${input.url}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        });
         if (!response.ok) {
             loading.fetching = false;
             loading.url = "";
@@ -226,10 +255,9 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
             }
         }
     };
-    const submit = async () => {};
+
     const data = {
         input,
-        extractEmails,
         submit,
     };
     document.getElementById("data").setAttribute("x-data", JSON.stringify(data));
