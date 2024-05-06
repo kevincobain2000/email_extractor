@@ -47,12 +47,20 @@ func main() {
 	}
 
 	if f.url == "https://" {
-		pkg.StartEcho(pkg.NewEcho(f.baseURL, publicDir, f.cors), f.host, f.port)
+		options := []pkg.EchoOption{
+			func(opt *pkg.EchoOptions) error {
+				opt.BaseURL = f.baseURL
+				opt.PublicDir = publicDir
+				opt.Cors = f.cors
+				return nil
+			},
+		}
+		pkg.StartEcho(pkg.NewEcho(options), f.host, f.port)
 		return
 	}
 
-	options := []pkg.Option{
-		func(opt *pkg.Options) error {
+	options := []pkg.CrawlOption{
+		func(opt *pkg.CrawlOptions) error {
 			opt.TimeoutMillisecond = f.timeout
 			opt.SleepMillisecond = f.sleep
 			opt.LimitUrls = f.limitUrls

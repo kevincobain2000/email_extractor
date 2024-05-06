@@ -9,7 +9,22 @@ import (
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func NewEcho(baseURL string, publicDir embed.FS, cors string) *echo.Echo {
+type EchoOptions struct {
+	BaseURL   string
+	PublicDir embed.FS
+	Cors      string
+}
+
+type EchoOption func(*EchoOptions) error
+
+func NewEcho(options []EchoOption) *echo.Echo {
+	opt := &EchoOptions{}
+	for _, o := range options {
+		err := o(opt)
+		if err != nil {
+			panic(err)
+		}
+	}
 	e := echo.New()
 
 	e.HTTPErrorHandler = HTTPErrorHandler
@@ -19,10 +34,10 @@ func NewEcho(baseURL string, publicDir embed.FS, cors string) *echo.Echo {
 	e.Use(middleware.LoggerWithConfig(middleware.LoggerConfig{
 		Format: ltsv(),
 	}))
-	SetupRoutes(e, baseURL, publicDir)
+	SetupRoutes(e, options)
 
-	if cors != "" {
-		SetupCors(e, cors)
+	if opt.Cors != "" {
+		SetupCors(e, opt.Cors)
 	}
 
 	return e

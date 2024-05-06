@@ -105,6 +105,10 @@ func ResponseHTML(c echo.Context, b []byte, cacheMS string) error {
 	SetHeadersResponseHTML(c.Response().Header(), cacheMS)
 	return c.Blob(http.StatusOK, "text/html", b)
 }
+func ResponseIco(c echo.Context, b []byte, cacheMS string) error {
+	SetHeadersResponseHTML(c.Response().Header(), cacheMS)
+	return c.Blob(http.StatusOK, "image/x-icon", b)
+}
 func ResponsePlain(c echo.Context, b []byte, cacheMS string) error {
 	SetHeadersResponsePlainText(c.Response().Header(), cacheMS)
 	return c.Blob(http.StatusOK, "text/plain", b)

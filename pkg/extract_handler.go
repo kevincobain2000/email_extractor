@@ -11,11 +11,15 @@ import (
 
 type ExtractHandler struct {
 	Extractor *Extract
+	queue     int
 }
+
+const limitQueue = 20
 
 func NewExtractHandler() *ExtractHandler {
 	return &ExtractHandler{
 		Extractor: NewExtract(),
+		queue:     1,
 	}
 }
 
@@ -24,6 +28,11 @@ type ExtractorRequest struct {
 }
 
 func (h *ExtractHandler) Get(c echo.Context) error {
+	h.queue++
+	if h.queue > limitQueue {
+		return echo.NewHTTPError(http.StatusUnprocessableEntity, "queue is full, please try again later")
+	}
+
 	req := new(ExtractorRequest)
 	if err := BindRequest(c, req); err != nil {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, err)
@@ -39,8 +48,8 @@ func (h *ExtractHandler) Get(c echo.Context) error {
 	c.Response().Header().Set(echo.HeaderContentType, echo.MIMEApplicationJSON)
 	c.Response().WriteHeader(http.StatusOK)
 
-	opts := []Option{
-		func(o *Options) error {
+	opts := []CrawlOption{
+		func(o *CrawlOptions) error {
 			o.TimeoutMillisecond = 1000
 			o.SleepMillisecond = 0
 			o.URL = req.URL
@@ -57,6 +66,8 @@ func (h *ExtractHandler) Get(c echo.Context) error {
 	hc := NewHTTPChallenge(opts...)
 
 	hc.CrawlRecursiveStream(req.URL, c, enc)
+
+	h.queue--
 
 	return nil
 }

@@ -15,7 +15,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type Options struct {
+type CrawlOptions struct {
 	TimeoutMillisecond int64
 	SleepMillisecond   int64
 	URL                string
@@ -26,7 +26,7 @@ type Options struct {
 	WriteToFile        string
 }
 
-type Option func(*Options) error
+type CrawlOption func(*CrawlOptions) error
 
 type HTTPChallenge struct {
 	browse *browser.Browser
@@ -35,11 +35,11 @@ type HTTPChallenge struct {
 	Emails           []string
 	TotalURLsCrawled int
 	TotalURLsFound   int
-	options          *Options
+	options          *CrawlOptions
 }
 
-func NewHTTPChallenge(opts ...Option) *HTTPChallenge {
-	opt := &Options{}
+func NewHTTPChallenge(opts ...CrawlOption) *HTTPChallenge {
+	opt := &CrawlOptions{}
 	for _, o := range opts {
 		err := o(opt)
 		if err != nil {

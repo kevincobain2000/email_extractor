@@ -14,6 +14,10 @@ type AssetsHandler struct {
 	publicDir embed.FS
 }
 
+const (
+	distDir = "frontend/dist"
+)
+
 func NewAssetsHandler(publicDir embed.FS, filename string) *AssetsHandler {
 	return &AssetsHandler{
 		publicDir: publicDir,
@@ -37,4 +41,13 @@ func (h *AssetsHandler) GetHTML(c echo.Context) error {
 		return c.String(http.StatusOK, os.Getenv("VERSION"))
 	}
 	return ResponseHTML(c, content, "0")
+}
+
+func (h *AssetsHandler) GetIco(c echo.Context) error {
+	filename := fmt.Sprintf("%s/%s", distDir, h.filename)
+	content, err := h.publicDir.ReadFile(filename)
+	if err != nil {
+		return c.String(http.StatusOK, os.Getenv("VERSION"))
+	}
+	return ResponseIco(c, content, "0")
 }

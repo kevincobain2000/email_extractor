@@ -55,35 +55,35 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         </div>
     </div>
 
-    <span x-text="loading.error" class="text-red-500 text-sm text-center block mt-5"></span>
-    <template x-if="loading.counterCrawls > 0">
-        <div class="text-center text-sm pt-5">
-            <span class="">CRAWLS #</span><span x-text="loading.counterCrawls"
-                class=" text-green-300 font-bold"></span>
-            <span class="pl-5">HITS #</span><span x-text="loading.counterHits"
-                class=" text-green-500 font-bold"></span>
-        </div>
-        <div class="text-center text-sm pt-1 block">
-            ➠ <span x-text="loading.url" class="text-blue-300"></span>
-        </div>
-    </template>
+    <span x-text="loading.error" class="text-red-300 text-sm text-center block mt-5"></span>
+    <div class="text-center text-sm pt-5">
+        <span class="">CRAWLS #</span><span x-text="loading.counterCrawls"
+            class=" text-green-300 font-bold"></span>
+        <span class="pl-5">HITS #</span><span x-text="loading.counterHits"
+            class=" text-green-500 font-bold"></span>
+    </div>
+    <div class="text-center text-sm pt-1 block">
+        ➠ <span x-text="loading.url" class="text-blue-300"></span>
+    </div>
     <template x-if="result.data.length > 0">
         <div class="overflow-x-auto mt-10 rounded xl:mr-32 xl:ml-32">
             <table class="w-full text-sm font-mono text-left text-gray-400">
                 <thead class="text-xs uppercase bg-gray-700 text-gray-400">
                     <tr>
-                        <th scope="col" class="px-6 py-3">#</th>
-                        <th scope="col" class="px-6 py-3">Email</th>
-                        <th scope="col" class="px-6 py-3">URL</th>
+                        <th scope="col" class="px-3 py-3">Item No.</th>
+                        <th scope="col" class="px-3 py-3">Email</th>
+                        <th scope="col" class="px-3 py-3">URL</th>
                     </tr>
                 </thead>
                 <tbody>
                     <template x-for="(item, index) in result.data">
                         <tr class="border-b bg-gray-800 border-gray-700">
-                            <td class="px-6 py-4" x-text="result.data.length - index"> </td>
-                            <th scope="row" class="px-6 py-4 font-medium text-white" x-text="item.email">
+                            <td class="px-3 py-2" x-text="result.data.length - index"> </td>
+                            <th scope="row" class="px-3 py-2 font-medium text-white" x-text="item.email">
                             </th>
-                            <td class="px-6 py-4" x-text="item.url"> </td>
+                            <td class="px-3 py-2">
+                                <a x-bind:href="item.url" target="_blank" class="text-blue-300" x-text="item.uri"></a>
+                            </td>
                         </tr>
                     </template>
                 </tbody>
@@ -148,7 +148,8 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
         if (!response.ok) {
             loading.fetching = false;
             loading.url = "";
-            loading.error = "Error: (" + response.status + ") " + response.statusText;
+            json = await response.json();
+            loading.error = "Error: (" + response.status + ") " + response.statusText + " (" + json.error + ")";
             return;
         }
         const reader = response.body.getReader();
@@ -171,9 +172,10 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
                 if (split.length !== 2) {
                     continue;
                 }
+
                 if (split[0] == "status") {
                     loading.counterCrawls++;
-                    loading.url = split[1];
+                    loading.url = split[1].replace(/.*\/\/[^\/]*/, '');
                 }
                 if (!split[0].includes("@")) {
                     continue;
@@ -188,7 +190,8 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
                 loading.counterHits++;
                 result.data = [{
                     email: split[0],
-                    url: split[1]
+                    url: split[1],
+                    uri: split[1].replace(/.*\/\/[^\/]*/, ''),
                 }, ...result.data];
             }
         }
