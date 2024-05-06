@@ -3,265 +3,351 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
 ---
 
 <div class="mx-auto" id="data" data-base-url={baseURL}>
-    <p class="text-violet-400 font-bold text-center text-4xl select-none pt-20">
-        Free - Online Email Extractor
-    </p>
+  <p class="text-violet-400 font-bold text-center text-4xl select-none pt-20">
+    Free - Online Email Extractor
+  </p>
 
-    <hr class="w-24 h-1 mx-auto bg-gray-500 border-0 rounded my-10" />
-    <p class="text-center  text-slate-400 font-semibold select-none">
-        <span class=" text-slate-500">Free <b class="text-green-500">online</b> tool to extract emails from any
-            URL.
-        </span>
-        <br>
-        <br>
-        <span class="text-sm text-slate-500 font-mono">Press <b class="text-white">CMD + A</b> to select all
-            results</span>
-    </p>
+  <hr class="w-24 h-1 mx-auto bg-gray-500 border-0 rounded my-10" />
+  <p class="text-center text-slate-400 font-semibold select-none">
+    <span class="text-slate-500"
+      >Free <b class="text-green-500">online</b> tool to extract emails from any
+      URL.
+    </span>
+    <br />
+    <br />
+    <span class="text-sm text-slate-500 font-mono"
+      >Press <b class="text-white">CMD + A</b> to select all results</span
+    >
+  </p>
 
-    <div class="max-w-md mx-auto mt-10 select-none">
-        <div class="relative">
-            <div class="absolute inset-y-12 start-0 flex items-center ps-3 pointer-events-none">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-6 h-6">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z" />
-                </svg>
-            </div>
-            <label for="first_name" class="block mb-2 text-sm font-bold text-slate-300">
-                URL <sup class="text-xs text-red-700">*required</sup>
-            </label>
-            <input type="search" id="input-url"
-                class="block font-mono w-full p-3 ps-10 text-sm text-slate-300 hover:text-slate-100 border border-gray-300 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
-                placeholder="https://" required />
-            <button x-bind:disabled="loading.fetching" type="button" @click="submit"
-                class="text-white disabled:text-slate-400 absolute end-2.5 bottom-1.5 bg-blue-700 disabled:bg-gray-700 hover:bg-blue-800 focus:outline-none font-bold rounded-lg text-sm px-4 py-2">
-                <template x-if="loading.fetching">
-                    <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
-                        viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                            fill="#E5E7EB"></path>
-                        <path
-                            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                            fill="currentColor"></path>
-                    </svg>
-                </template>
-                <template x-if="!loading.fetching">
-                    <span>Extract</span>
-                </template>
-                <template x-if="loading.fetching">
-                    <span>Crawling</span>
-                </template>
-            </button>
-        </div>
-        <span x-text="loading.error" class="text-red-300 text-sm font-bold text-center block mt-5"></span>
-        <pre x-text="loading.errorJSON" class="text-red-200 text-sm text-center block mt-2 text-wrap"></pre>
-        <div class="pt-10">
-            <div class="grid gap-6 mb-6 md:grid-cols-2">
-                <div>
-                    <label for="input-depth" class="block mb-2 text-sm font-medium text-slate-400">
-                        Depth <sup class="text-xs text-slate-500">-1 to 5</sup>
-                    </label>
-                    <input id="input-depth" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="-1" />
-                </div>
-                <div>
-                    <label for="input-ignore-queries" class="block mb-2 text-sm font-medium text-slate-400">
-                        Depth <sup class="text-xs text-slate-500">true or false</sup>
-                    </label>
-                    <input id="input-ignore-queries" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="true" pattern="true|false" />
-                </div>
-                <div>
-                    <label for="input-limit-urls" class="block mb-2 text-sm font-medium text-slate-400">
-                        Limit URLS <sup class="text-xs text-slate-500">max 1000</sup>
-                    </label>
-                    <input id="input-limit-urls" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="-1" />
-                </div>
-                <div>
-                    <label for="input-limit-emails" class="block mb-2 text-sm font-medium text-slate-400">
-                        Limit Emails <sup class="text-xs text-slate-500">max 10000</sup>
-                    </label>
-                    <input id="input-limit-emails" type="text" class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none" placeholder="true" pattern="true|false" />
-                </div>
-            </div>
-        </div>
+  <div class="max-w-md mx-auto mt-10 select-none">
+    <div class="relative">
+      <div
+        class="absolute inset-y-12 start-0 flex items-center ps-3 pointer-events-none"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m5.231 13.481L15 17.25m-4.5-15H5.625c-.621 0-1.125.504-1.125 1.125v16.5c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Zm3.75 11.625a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+          ></path>
+        </svg>
+      </div>
+      <label
+        for="first_name"
+        class="block mb-2 text-sm font-bold text-slate-300"
+      >
+        URL <sup class="text-xs text-red-700">*required</sup>
+      </label>
+      <input
+        type="search"
+        id="input-url"
+        class="block font-mono w-full p-3 ps-10 text-sm text-slate-300 hover:text-slate-100 border border-gray-300 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
+        placeholder="https://"
+        required
+      />
+      <button
+        x-bind:disabled="loading.fetching"
+        type="button"
+        @click="submit"
+        class="text-white disabled:text-slate-400 absolute end-2.5 bottom-1.5 bg-blue-700 disabled:bg-gray-700 hover:bg-blue-800 focus:outline-none font-bold rounded-lg text-sm px-4 py-2"
+      >
+        <template x-if="loading.fetching">
+          <svg
+            aria-hidden="true"
+            role="status"
+            class="inline w-4 h-4 me-3 text-white animate-spin"
+            viewBox="0 0 100 101"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+              fill="#E5E7EB"></path>
+            <path
+              d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+              fill="currentColor"></path>
+          </svg>
+        </template>
+        <template x-if="!loading.fetching">
+          <span>Extract</span>
+        </template>
+        <template x-if="loading.fetching">
+          <span>Crawling</span>
+        </template>
+      </button>
     </div>
-    <br>
-    <div class="inline-flex items-center justify-center w-full select-none">
-        <hr class="w-1/2 h-px my-8 border-0 bg-gray-700">
-        <span class="absolute px-8 py-1 text-sm font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700">
-            Status
-             <span x-text="loading.url" class="text-blue-200 font-medium font-mono"></span>
-        </span>
-    </div>
-
-    <div class="text-center text-sm pt-5 select-none">
-        <span class="font-semibold">Crawls <span class="text-slate-500">#</span></span><span x-text="loading.counterCrawls"
-            class=" text-green-300 font-bold"></span>
-        <span class="font-semibold pl-5">Hits <span class="text-slate-500">#</span></span><span x-text="loading.counterHits"
-            class=" text-green-500 font-bold"></span>
-    </div>
-
-    <template x-if="result.data.length > 0">
-        <div class="overflow-x-auto mt-10 rounded xl:mr-32 xl:ml-32">
-            <table class="w-full text-sm font-mono text-left text-gray-400">
-                <thead class="text-xs uppercase bg-gray-700 text-gray-400">
-                    <tr>
-                        <th scope="col" class="px-3 py-3">Item No.</th>
-                        <th scope="col" class="px-3 py-3">Email</th>
-                        <th scope="col" class="px-3 py-3">URL</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <template x-for="(item, index) in result.data">
-                        <tr class="border-b bg-gray-800 border-gray-700">
-                            <td class="px-3 py-2" x-text="result.data.length - index"> </td>
-                            <th scope="row" class="px-3 py-2 font-medium text-white" x-text="item.email">
-                            </th>
-                            <td class="px-3 py-2">
-                                <a x-bind:href="item.url" target="_blank" class="text-blue-300" x-text="item.uri"></a>
-                            </td>
-                        </tr>
-                    </template>
-                </tbody>
-            </table>
+    <span
+      x-text="loading.error"
+      class="text-red-300 text-sm font-bold text-center block mt-5"></span>
+    <pre
+      x-text="loading.errorJSON"
+      class="text-red-200 text-sm text-center block mt-2 text-wrap">
+    </pre>
+    <div class="pt-10">
+      <div class="grid gap-6 mb-6 md:grid-cols-2">
+        <div>
+          <label
+            for="input-depth"
+            class="block mb-2 text-sm font-medium text-slate-400"
+          >
+            Depth <sup class="text-xs text-slate-500">-1 to 5</sup>
+          </label>
+          <input
+            id="input-depth"
+            type="text"
+            class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
+            placeholder="-1"
+          />
         </div>
-    </template>
+        <div>
+          <label
+            for="input-ignore-queries"
+            class="block mb-2 text-sm font-medium text-slate-400"
+          >
+            Depth <sup class="text-xs text-slate-500">true or false</sup>
+          </label>
+          <input
+            id="input-ignore-queries"
+            type="text"
+            class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
+            placeholder="true"
+            pattern="true|false"
+          />
+        </div>
+        <div>
+          <label
+            for="input-limit-urls"
+            class="block mb-2 text-sm font-medium text-slate-400"
+          >
+            Limit URLS <sup class="text-xs text-slate-500">max 1000</sup>
+          </label>
+          <input
+            id="input-limit-urls"
+            type="text"
+            class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
+            placeholder="-1"
+          />
+        </div>
+        <div>
+          <label
+            for="input-limit-emails"
+            class="block mb-2 text-sm font-medium text-slate-400"
+          >
+            Limit Emails <sup class="text-xs text-slate-500">max 10000</sup>
+          </label>
+          <input
+            id="input-limit-emails"
+            type="text"
+            class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
+            placeholder="true"
+            pattern="true|false"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="inline-flex items-center justify-center w-full select-none">
+    <hr class="w-1/2 h-px my-8 border-0 bg-gray-700" />
+    <span
+      class="absolute px-8 py-1 text-sm font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700"
+    >
+      Status
+      <span x-text="loading.url" class="text-blue-200 font-medium font-mono"
+      ></span>
+    </span>
+  </div>
+
+  <div class="text-center text-sm pt-5 select-none">
+    <span class="font-semibold"
+      >Crawls <span class="text-slate-500">#</span></span
+    ><span x-text="loading.counterCrawls" class="text-green-300 font-bold"
+    ></span>
+    <span class="font-semibold pl-5"
+      >Hits <span class="text-slate-500">#</span></span
+    ><span x-text="loading.counterHits" class="text-green-500 font-bold"></span>
+  </div>
+
+  <template x-if="result.data.length > 0">
+    <div class="overflow-x-auto mt-10 rounded xl:mr-32 xl:ml-32">
+      <table class="w-full text-sm font-mono text-left text-gray-400">
+        <thead class="text-xs uppercase bg-gray-700 text-gray-400">
+          <tr>
+            <th scope="col" class="px-3 py-3">Item No.</th>
+            <th scope="col" class="px-3 py-3">Email</th>
+            <th scope="col" class="px-3 py-3">URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template x-for="(item, index) in result.data">
+            <tr class="border-b bg-gray-800 border-gray-700">
+              <td class="px-3 py-2" x-text="result.data.length - index"> </td>
+              <th
+                scope="row"
+                class="px-3 py-2 font-medium text-white"
+                x-text="item.email"
+              >
+              </th>
+              <td class="px-3 py-2">
+                <a
+                  x-bind:href="item.url"
+                  target="_blank"
+                  class="text-blue-300"
+                  x-text="item.uri"></a>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+    </div>
+  </template>
 </div>
 
 <script is:inline src="//unpkg.com/alpinejs"></script>
 <script is:inline>
-    const currentURL = window.location.origin;
-    let baseURL =
-        document.querySelector("[data-base-url]")?.getAttribute("data-base-url") ||
-        currentURL;
-    baseURL = baseURL.startsWith("http") ? baseURL : currentURL + baseURL;
-    let input = Alpine.reactive({
-        url: "",
-        depth: 2,
-        ignore_queries: true,
-        limit_urls: 1000,
-        limit_emails: 10000,
-    });
-    document.getElementById("input-url").value = input.url;
-    document.getElementById("input-depth").value = input.depth;
-    document.getElementById("input-ignore-queries").value = input.ignore_queries;
-    document.getElementById("input-limit-urls").value = input.limit_urls;
-    document.getElementById("input-limit-emails").value = input.limit_emails;
-    let result = Alpine.reactive({
-        data: [],
-    });
-    let loading = Alpine.reactive({
-        fetching: false,
-        url: "",
-        counterCrawls: 0,
-        counterHits: 0,
-        error: "",
-        errorJSON: "",
-    });
-    const isURL = (str) => {
-        const pattern = new RegExp(
-            "^(https?:\\/\\/)?" + // protocol
-            "((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
-            "((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
-            "(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
-            "(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
-            "(\\#[-a-z\\d_]*)?$",
-            "i"
-        ); // fragment locator
-        return !!pattern.test(str);
-    };
+  const currentURL = window.location.origin;
+  let baseURL =
+    document.querySelector("[data-base-url]")?.getAttribute("data-base-url") ||
+    currentURL;
+  baseURL = baseURL.startsWith("http") ? baseURL : currentURL + baseURL;
+  let input = Alpine.reactive({
+    url: "",
+    depth: 2,
+    ignore_queries: true,
+    limit_urls: 1000,
+    limit_emails: 10000,
+  });
+  document.getElementById("input-url").value = input.url;
+  document.getElementById("input-depth").value = input.depth;
+  document.getElementById("input-ignore-queries").value = input.ignore_queries;
+  document.getElementById("input-limit-urls").value = input.limit_urls;
+  document.getElementById("input-limit-emails").value = input.limit_emails;
+  let result = Alpine.reactive({
+    data: [],
+  });
+  let loading = Alpine.reactive({
+    fetching: false,
+    url: "",
+    counterCrawls: 0,
+    counterHits: 0,
+    error: "",
+    errorJSON: "",
+  });
+  const isURL = (str) => {
+    try {
+      new URL(string);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  };
 
-    const submit = async () => {
-        input.url = document.getElementById("input-url").value.trim()
-        input.depth = document.getElementById("input-depth").value.trim()
-        input.ignore_queries = document.getElementById("input-ignore-queries").value.trim()
-        input.limit_urls = document.getElementById("input-limit-urls").value.trim()
-        input.limit_emails = document.getElementById("input-limit-emails").value.trim()
+  const submit = async () => {
+    input.url = document.getElementById("input-url").value.trim();
+    input.depth = document.getElementById("input-depth").value.trim();
+    input.ignore_queries = document
+      .getElementById("input-ignore-queries")
+      .value.trim();
+    input.limit_urls = document.getElementById("input-limit-urls").value.trim();
+    input.limit_emails = document
+      .getElementById("input-limit-emails")
+      .value.trim();
 
-        if (loading.fetching) {
-            loading.error = "Processing error: Already processing another URL";
-            return;
+    if (loading.fetching) {
+      loading.error = "Processing error: Already processing another URL";
+      return;
+    }
+    if (!isURL(input.url)) {
+      loading.error = "Input error: Invalid URL";
+      loading.errorJSON = "";
+      return;
+    }
+    result.data = [];
+    loading.fetching = true;
+    loading.url = input.url;
+    loading.counterCrawls = 0;
+    loading.counterHits = 0;
+    loading.error = "";
+    loading.errorJSON = "";
+
+    // stream api
+    const response = await fetch(
+      `${baseURL}/api/extract?depth=${input.depth}&ignore_queries=${input.ignore_queries}&limit_urls=${input.limit_urls}&limit_emails=${input.limit_emails}&url=${input.url}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    if (!response.ok) {
+      loading.fetching = false;
+      loading.url = "";
+      json = await response.json();
+      jsonString = JSON.stringify(json);
+      loading.error = response.status + " " + response.statusText;
+      loading.errorJSON = jsonString;
+      return;
+    }
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        loading.fetching = false;
+        loading.url = "";
+        break;
+      }
+      let tsv = decoder.decode(value);
+
+      for (let v of tsv.split("\n")) {
+        v = v.replace(/^"|"$/g, "");
+        split = v.split("_SPLIT_DELIMETER_");
+        if (split.length !== 2) {
+          continue;
         }
-        if (!isURL(input.url)) {
-            loading.error = "Input error: Invalid URL";
-            loading.errorJSON = "";
-            return;
+
+        if (split[0] == "status") {
+          loading.counterCrawls++;
+          loading.url = split[1].replace(/.*\/\/[^\/]*/, "");
         }
-        result.data = [];
-        loading.fetching = true;
-        loading.url = input.url;
-        loading.counterCrawls = 0;
-        loading.counterHits = 0;
-        loading.error = "";
-        loading.errorJSON = "";
-
-        // stream api
-        const response = await fetch(`${baseURL}/api/extract?depth=${input.depth}&ignore_queries=${input.ignore_queries}&limit_urls=${input.limit_urls}&limit_emails=${input.limit_emails}&url=${input.url}`, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
-        if (!response.ok) {
-            loading.fetching = false;
-            loading.url = "";
-            json = await response.json();
-            jsonString = JSON.stringify(json);
-            loading.error = response.status + " " + response.statusText;
-            loading.errorJSON = jsonString;
-            return;
+        if (!split[0].includes("@")) {
+          continue;
         }
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        while (true) {
-            const {
-                done,
-                value
-            } = await reader.read();
-            if (done) {
-                loading.fetching = false;
-                loading.url = "";
-                break;
-            }
-            let tsv = decoder.decode(value);
-
-            for (let v of tsv.split("\n")) {
-                v = v.replace(/^"|"$/g, "");
-                split = v.split("_SPLIT_DELIMETER_");
-                if (split.length !== 2) {
-                    continue;
-                }
-
-                if (split[0] == "status") {
-                    loading.counterCrawls++;
-                    loading.url = split[1].replace(/.*\/\/[^\/]*/, '');
-                }
-                if (!split[0].includes("@")) {
-                    continue;
-                }
-                if (
-                    result.data.some(
-                        (item) => item.email === split[0] && item.url === split[1]
-                    )
-                ) {
-                    continue;
-                }
-                loading.counterHits++;
-                result.data = [{
-                    email: split[0],
-                    url: split[1],
-                    uri: split[1].replace(/.*\/\/[^\/]*/, ''),
-                }, ...result.data];
-            }
+        if (
+          result.data.some(
+            (item) => item.email === split[0] && item.url === split[1]
+          )
+        ) {
+          continue;
         }
-    };
+        loading.counterHits++;
+        result.data = [
+          {
+            email: split[0],
+            url: split[1],
+            uri: split[1].replace(/.*\/\/[^\/]*/, ""),
+          },
+          ...result.data,
+        ];
+      }
+    }
+  };
 
-    const data = {
-        input,
-        submit,
-    };
-    document.getElementById("data").setAttribute("x-data", JSON.stringify(data));
-    Alpine.start();
+  const data = {
+    input,
+    submit,
+  };
+  document.getElementById("data").setAttribute("x-data", JSON.stringify(data));
+  Alpine.start();
 </script>
 
 <style></style>
