@@ -243,7 +243,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
   });
   const isURL = (str) => {
     try {
-      new URL(string);
+      new URL(str);
       return true;
     } catch (err) {
       return false;
