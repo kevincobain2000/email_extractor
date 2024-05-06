@@ -25,7 +25,7 @@ func NewExtractHandler() *ExtractHandler {
 
 type ExtractorRequest struct {
 	URL           string `json:"url"  query:"url" validate:"required" message:"url is required"`
-	Depth         int    `json:"depth" query:"depth" default:"1" validate:"required,numeric,gte=-1,lte=5" message:"depth must be a number between -1 and 5"`
+	Depth         int    `json:"depth" query:"depth" default:"1" validate:"required,numeric,gte=-1,lte=5" message:"depth must be a number between -1 and 20"`
 	IgnoreQueries string `json:"ignore_queries" default:"true" query:"ignore_queries" validate:"required,eq=true|eq=false" message:"ignore_queries must be true or false"`
 	LimitUrls     int    `json:"limit_urls" query:"limit_urls" default:"100" validate:"required,numeric,gte=1,lte=1000" message:"limit_urls must be a number between 1 and 1000"`
 	LimitEmails   int    `json:"limit_emails" query:"limit_emails" default:"1000" validate:"required,numeric,gte=1,lte=10000" message:"limit_emails must be a number between 1 and 10000"`

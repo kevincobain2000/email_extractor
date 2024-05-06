@@ -98,7 +98,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
             for="input-depth"
             class="block mb-2 text-sm font-medium text-slate-400"
           >
-            Depth <sup class="text-xs text-slate-500">-1 to 5</sup>
+            Depth <sup class="text-xs text-slate-500">-1 to 20</sup>
           </label>
           <input
             id="input-depth"
@@ -220,7 +220,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
   baseURL = baseURL.startsWith("http") ? baseURL : currentURL + baseURL;
   let input = Alpine.reactive({
     url: "",
-    depth: 2,
+    depth: 1,
     ignore_queries: true,
     limit_urls: 1000,
     limit_emails: 10000,

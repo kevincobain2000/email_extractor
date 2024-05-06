@@ -103,19 +103,32 @@ func RelativeToAbsoluteURL(href, currentURL, baseURL string) string {
 	if strings.HasPrefix(href, "http") {
 		return href
 	}
-	// ignore if it is javascript:void(0)
-	if strings.HasPrefix(href, "javascript:void(0)") {
-		return ""
+	// Parse the URLs
+	u, err := url.Parse(href)
+	if err != nil {
+		return "" // handle error, return empty string or appropriate value
 	}
 
-	if strings.HasPrefix(href, "/") {
-		return baseURL + href
-	}
-	if strings.HasPrefix(href, "./") {
-		return currentURL + href[2:]
+	// If href is absolute, return it directly
+	if u.IsAbs() {
+		return u.String()
 	}
 
-	return currentURL + href
+	// Use baseURL if currentURL is not provided
+	if currentURL == "" {
+		parsedBaseURL, err := url.Parse(baseURL)
+		if err != nil {
+			return "" // handle error, return empty string or appropriate value
+		}
+		return parsedBaseURL.ResolveReference(u).String()
+	}
+
+	// Resolve the relative URL using currentURL
+	parsedCurrentURL, err := url.Parse(currentURL)
+	if err != nil {
+		return "" // handle error, return empty string or appropriate value
+	}
+	return parsedCurrentURL.ResolveReference(u).String()
 }
 
 func CountPerDomain(emails []string) map[string]int {
