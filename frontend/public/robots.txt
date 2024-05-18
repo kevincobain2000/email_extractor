@@ -1,8 +1,2 @@
 User-agent: *
 Allow: /
-Disallow: /upload
-Disallow: /chart
-Disallow: /badge
-Disallow: /destroy
-Disallow: /pr
-Disallow: /api/readme
