@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/url"
+	"sync"
 
 	"github.com/labstack/echo/v4"
 	"github.com/mcuadros/go-defaults"
@@ -12,6 +13,7 @@ import (
 type ExtractHandler struct {
 	Extractor *Extract
 	queue     int
+	mu        sync.Mutex
 }
 
 const limitQueue = 20
@@ -32,6 +34,8 @@ type ExtractorRequest struct {
 }
 
 func (h *ExtractHandler) Get(c echo.Context) error {
+	h.mu.Lock()
+	defer h.mu.Unlock()
 	h.queue++
 	if h.queue > limitQueue {
 		return echo.NewHTTPError(http.StatusUnprocessableEntity, "queue is full, please try again later")

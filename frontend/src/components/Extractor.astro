@@ -14,7 +14,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
   <p class="text-center text-slate-400 font-semibold select-none">
     <span class="text-slate-500"
       >Free <b class="text-green-500">online</b> tool to extract emails from any
-      URL.
+      URL
     </span>
     <br />
     <br />
@@ -99,6 +99,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
             class="block font-mono w-full p-3 ps-4 text-sm text-slate-300 hover:text-slate-100 border border-gray-500 hover:border-gray-100 rounded-lg bg-gray-900 focus:outline-none"
             placeholder="-1"
           />
+          <p class="p-1 text-sm text-slate-500">-1 to crawl all links. 0 to only current link. 1 onwards to crawl links forward depth</p>
         </div>
         <div>
           <label
@@ -150,22 +151,29 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
   <div class="inline-flex items-center justify-center w-full select-none">
     <hr class="w-1/2 h-px my-8 border-0 bg-gray-700" />
     <span
-      class="absolute px-8 py-1 text-sm font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700"
+      class="absolute px-8 py-2 text-sm font-bold -translate-x-1/2 left-1/2 text-green-300 bg-slate-900 rounded border-2 border-gray-700"
     >
-      Status
+      Crawling Status
       <span x-text="loading.url" class="text-blue-200 font-medium font-mono"
       ></span>
     </span>
   </div>
 
-  <div class="text-center text-sm pt-5 select-none">
-    <span class="font-semibold"
-      >Crawls <span class="text-slate-500">#</span></span
-    ><span x-text="loading.counterCrawls" class="text-green-300 font-bold"
-    ></span>
-    <span class="font-semibold pl-5"
-      >Hits <span class="text-slate-500">#</span></span
-    ><span x-text="loading.counterHits" class="text-green-500 font-bold"></span>
+  <div class="text-center text-sm pt-5 select-none flex items-center justify-center">
+    <div class="flex items-center space-x-8">
+        <div class="flex flex-col items-center">
+            <div class="flex items-center justify-center w-24 h-24 bg-blue-500 rounded-full">
+                <span class="text-2xl font-bold text-white" x-text="loading.counterCrawls">75</span>
+            </div>
+            <span class="mt-2 text-lg font-bold text-slate-400">Crawls</span>
+        </div>
+        <div class="flex flex-col items-center">
+            <div class="flex items-center justify-center w-24 h-24 bg-green-500 rounded-full">
+                <span class="text-2xl font-bold text-white" x-text="loading.counterHits">120</span>
+            </div>
+            <span class="mt-2 text-lg font-bold text-slate-400">Hits</span>
+        </div>
+    </div>
   </div>
 
   <template x-if="result.data.length > 0">
