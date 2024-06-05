@@ -29,3 +29,5 @@ dist/
 bin/
 main
 .DS_Store
+
+*.log
