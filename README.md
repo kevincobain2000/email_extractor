@@ -151,3 +151,4 @@ npm run dev
 - v2.10 - Adds hint for status code
 - v2.12 - Option to do in parallel and better messaging
 - v3.0 - Web UI
+- v3.1 - Minor cli change
