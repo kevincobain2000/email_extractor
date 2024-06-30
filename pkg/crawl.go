@@ -232,7 +232,8 @@ func (hc *HTTPChallenge) Crawl(url string) []string {
 		color.Secondary.Print("......................")
 		color.Note.Println(fmt.Sprintf("(%d) %s", len(emails), url))
 		for _, email := range emails {
-			color.Secondary.Print("                            📧 ")
+			color.Note.Print("Emails")
+			color.Secondary.Print("......................")
 			color.Success.Println(email)
 		}
 		fmt.Println()
