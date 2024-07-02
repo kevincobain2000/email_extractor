@@ -1,5 +1,6 @@
 ---
 const baseURL = import.meta.env.PUBLIC_BASE_URL;
+import Alpine from "@components/Alpine.astro";
 ---
 
 <div class="mx-auto" id="data" data-base-url={baseURL}>
@@ -211,7 +212,7 @@ const baseURL = import.meta.env.PUBLIC_BASE_URL;
   </template>
 </div>
 
-<script is:inline src="//unpkg.com/alpinejs"></script>
+<Alpine />
 <script is:inline>
   const currentURL = window.location.origin;
   let baseURL =
