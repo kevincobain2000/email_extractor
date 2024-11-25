@@ -1,0 +1,55 @@
+on:
+  pull_request:
+  push:
+    tags-ignore:
+      - '**'
+    branches:
+      - '**'
+
+name: "Build and Test Workflow"
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+jobs:
+  build-and-test:
+    strategy:
+      matrix:
+        go-version: [latest]
+        node-version: [20]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: kevincobain2000/action-gobrew@v2
+        with:
+          version: ${{ matrix.go-version }}
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Tools
+        run: |
+          go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+          curl -sLk https://raw.githubusercontent.com/kevincobain2000/cover-totalizer/master/install.sh | sh
+
+      - name: NPM Install
+        run: |
+          cd frontend
+          npm install
+
+      - name: NPM Build
+        run: |
+          cd frontend
+          npm run build
+
+      - name: Go Mod Tidy
+        run: go mod tidy
+
+      - name: Go Build
+        run: go build main.go
+
+      - name: Test
+        run: go test -race -v ./... -count=1

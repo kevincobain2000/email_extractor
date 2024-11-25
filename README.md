@@ -28,25 +28,6 @@ First it extracts all the number of urls provided by the user and at the same ti
 
 **Dependency Free:** No need to install any dependencies from `pip`, `npm`. Just download and run.
 
-# C.I
-
-![go-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-build-time)
-![go-test-runtime](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-test-runtime)
-![coverage](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=coverage)
-![go-binary-size](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-binary-size)
-![go-mod-dependencies](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-mod-dependencies)
-![npm-install-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-install-time)
-![npm-build-time](https://coveritup.app/badge?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-build-time)
-
-![go-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-build-time&theme=light&line=fill&width=150&height=150)
-![go-test-runtime](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-test-runtime&theme=light&line=fill&width=150&height=150)
-![coverage](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=coverage&theme=light&line=fill&width=150&height=150)
-![go-binary-size](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-binary-size&theme=light&line=fill&width=150&height=150)
-![go-mod-dependencies](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=go-mod-dependencies&theme=light&line=fill&width=150&height=150)
-![npm-install-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-install-time&theme=light&line=fill&width=150&height=150)
-![npm-build-time](https://coveritup.app/chart?org=kevincobain2000&repo=email_extractor&branch=master&output=svg&type=npm-build-time&theme=light&line=fill&width=150&height=150)
-
-
 # Install
 
 ```sh
