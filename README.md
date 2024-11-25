@@ -12,11 +12,6 @@ A free utility to extract email address by crawling a given url upto a given dep
 Web email extractor by url crawl using command line interface. Email addresses can be extracted from any url.
 First it extracts all the number of urls provided by the user and at the same time extracts emails using simple Go routines. This simple application allows to crawl through a website with depth options.
 
-<p align="center">
-  <a href="https://email-extractor.coveritup.app">
-    <img alt="free email extractor online app url" src="https://imgur.com/z9nS7xm.png" width="460">
-  </a>
-</p>
 
 **Quick Setup:** One command to install lighweight binary.
 
@@ -105,10 +100,6 @@ email_extractor --port=8080
 # Performance
 
 It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
-
-<p align="center">
-  <img alt="bar chart" src='https://instachart.coveritup.app/bar?title=Performance&subtitle=Email+Extractor&output=svg&metric=sec&theme=light&data={%20%22x%22:%20[%22100%20URLS%22,%20%22500%20URLS%22,%20%221000%20URLS%22],%20%22y%22:%20[[1,6,11]],%20%22names%22:%20[%22Time%20to%20Extract%22]%20}'>
-</p>
 
 # Development notes
 
