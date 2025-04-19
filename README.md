@@ -36,10 +36,6 @@ mv email_extractor /usr/local/bin/
 **Simple usage**
 
 ```sh
-# using web GUI
-email_extractor
-
-# or using CLI
 email_extractor -url=kevincobain2000.github.io
 ```
 
@@ -104,8 +100,7 @@ It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
 # Development notes
 
 ```sh
-# for backend
-air # or go run main.go
+go run main.go -h
 ```
 
 # CHANGE LOG
