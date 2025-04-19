@@ -48,17 +48,17 @@ email_extractor -url=kevincobain2000.github.io
 Cli application
 
 ```sh
-# Do not crawl urls
+# Do not crawl urls, just this URL
 email_extractor -depth=0 -url=kevincobain2000.github.io
 
+# Crawl everything, including this URL
+email_extractor -depth=-1 -url=kevincobain2000.github.io
+
 # write emails to a file
-email_extractor -out=marketing.txt -url=kevincobain2000.github.io
+email_extractor -out=emails.txt -url=kevincobain2000.github.io
 
 #extract from 100 urls
 email_extractor -limit-urls=100 -url=kevincobain2000.github.io
-
-# run on a different port (for web GUI)
-email_extractor --port=8080
 ```
 
 **All Options**
@@ -95,7 +95,7 @@ email_extractor --port=8080
 
 # Samples
 
-![Screenshot](https://imgur.com/P9dLjUf.png)
+![Screenshot](https://imgur.com/fVulc7g.png)
 
 # Performance
 
