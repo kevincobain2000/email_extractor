@@ -119,4 +119,4 @@ air # or go run main.go
 - v2.12 - Option to do in parallel and better messaging
 - v3.0 - Web UI
 - v3.1 - Minor cli change
-- v3.2 - Remove Web UI
+- v3.4 - Remove Web UI
