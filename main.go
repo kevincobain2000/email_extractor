@@ -1,7 +1,6 @@
 package main
 
 import (
-	"embed"
 	"flag"
 	"fmt"
 	"strings"
@@ -25,37 +24,16 @@ type Flags struct {
 	depth         int
 	timeout       int64
 	sleep         int64
-
-	host    string
-	port    string
-	cors    string
-	baseURL string
 }
 
 var f Flags
 
-//go:embed all:frontend/dist/*
-var publicDir embed.FS
-
 func main() {
+	SetupFlags()
 	startTime := time.Now()
 
-	SetupFlags()
 	if f.version {
 		fmt.Println(version)
-		return
-	}
-
-	if f.url == "https://" {
-		options := []pkg.EchoOption{
-			func(opt *pkg.EchoOptions) error {
-				opt.BaseURL = f.baseURL
-				opt.PublicDir = publicDir
-				opt.Cors = f.cors
-				return nil
-			},
-		}
-		pkg.StartEcho(pkg.NewEcho(options), f.host, f.port)
 		return
 	}
 
@@ -158,11 +136,6 @@ Note: pagination links are usually query params
 Set it to false, if you want to crawl such links
 `)
 	flag.BoolVar(&f.parallel, "parallel", true, "crawl urls in parallel")
-
-	flag.StringVar(&f.host, "host", "localhost", "host to serve")
-	flag.StringVar(&f.port, "port", "3004", "port to serve")
-	flag.StringVar(&f.cors, "cors", "", "cors port to allow")
-	flag.StringVar(&f.baseURL, "base-url", "/", "base url with slash")
 	flag.Parse()
 
 	if !strings.HasPrefix(f.url, "http") {

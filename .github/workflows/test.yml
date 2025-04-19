@@ -33,17 +33,6 @@ jobs:
       - name: Install Tools
         run: |
           go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-          curl -sLk https://raw.githubusercontent.com/kevincobain2000/cover-totalizer/master/install.sh | sh
-
-      - name: NPM Install
-        run: |
-          cd frontend
-          npm install
-
-      - name: NPM Build
-        run: |
-          cd frontend
-          npm run build
 
       - name: Go Mod Tidy
         run: go mod tidy

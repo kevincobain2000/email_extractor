@@ -106,11 +106,6 @@ It crawled `1000 urls`, and found `300 email addresses` in about `11 seconds`.
 ```sh
 # for backend
 air # or go run main.go
-
-# for frontend
-cd fronend
-npm install
-npm run dev
 ```
 
 # CHANGE LOG
@@ -124,3 +119,4 @@ npm run dev
 - v2.12 - Option to do in parallel and better messaging
 - v3.0 - Web UI
 - v3.1 - Minor cli change
+- v3.2 - Remove Web UI
